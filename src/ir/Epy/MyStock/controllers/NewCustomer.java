@@ -35,13 +35,14 @@ public class NewCustomer extends HttpServlet {
                 Database.get_obj().add_customer(id,name,family);
                 request.setAttribute("success_message", Constants.CustomerAddedMessage);
                 request.getRequestDispatcher("/customers/index.jsp").forward(request, response);
+                return;
             } catch (CustomerExistsException e) {
                 errors.add(Constants.CustomerExistsMessage);
             }
-        } else {
-            request.setAttribute("errors", errors);
-            request.getRequestDispatcher("/customers/new.jsp").forward(request, response);
         }
+
+        request.setAttribute("errors", errors);
+        request.getRequestDispatcher("/customers/new.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
