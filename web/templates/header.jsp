@@ -15,8 +15,24 @@
     <link rel=" stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <link rel="stylesheet" href="//cdn.rawgit.com/morteza/bootstrap-rtl/v3.3.4/dist/css/bootstrap-rtl.min.css">
     <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
 </head>
 <body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+
+            <ul class="nav navbar-nav">
+                <li><a class="navbar-brand" href="/customers/new"><i class="fa fa-user"></i>ایجاد کاربر</a></li>
+                <li><a class="navbar-brand" href="/requests/new"><i class="fa fa-newspaper-o"></i>
+                    درخواست جدید</a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <% if(request.getAttribute("success_message") != null) { %>
 <div class="alert alert-success">

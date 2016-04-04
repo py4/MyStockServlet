@@ -285,7 +285,7 @@ table th {
 /* show menu */
 @media (min-width: 48em) {
     body{
-        background: lightcoral;
+        background: #eff0e3;
     }
     /*.content {*/
     /*padding-left: 1em;*/
