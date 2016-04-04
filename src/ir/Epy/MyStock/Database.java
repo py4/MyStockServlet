@@ -17,7 +17,14 @@ public class Database {
     HashMap<String, Customer> customers = new HashMap<>();
     HashMap<String, Stock> stocks = new HashMap<>();
 
-    private Database() {}
+    private Database() {
+        try {
+            add_customer("1", "admin", "admin zadegan");
+        } catch (CustomerExistsException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Database get_obj() {
         return obj;
     }

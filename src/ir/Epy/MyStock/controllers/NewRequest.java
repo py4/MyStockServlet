@@ -33,7 +33,8 @@ public class NewRequest extends HttpServlet {
         String buy_or_sell = request.getParameter("buy_or_sell");
         Stock stock = null;
 
-        PrintWriter msg = new PrintWriter(new StringWriter(), true);
+        StringWriter org = new StringWriter();
+        PrintWriter msg = new PrintWriter(org);
         try {
             Customer customer = Database.get_obj().get_customer(id);
             try {
@@ -61,6 +62,13 @@ public class NewRequest extends HttpServlet {
             errors.add(Constants.NotEnoughShareMessage);
         }
 
+        if(errors.size() > 0) {
+            request.setAttribute("errors", errors);
+            request.getRequestDispatcher("/requests/new.jsp").forward(request, response);
+        } else {
+            request.setAttribute("success_message", org.toString());
+            request.getRequestDispatcher("/requests/index.jsp").forward(request, response);
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
