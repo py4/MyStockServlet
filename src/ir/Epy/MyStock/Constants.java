@@ -20,4 +20,5 @@ public class Constants {
     public static final String InvalidCreditValueMessage = "Invalid value for credit";
     public static final String CreditRequestNotFoundMessage = "Unknown credit request";
     public static final String CreditRequestProcessedMessage = "Credit request processed";
+    public static final String CSVLogFailedMessage = "Failed to log to csv file";
 }

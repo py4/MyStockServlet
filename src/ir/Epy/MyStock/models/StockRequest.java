@@ -1,6 +1,7 @@
 package ir.Epy.MyStock.models;
 
 import ir.Epy.MyStock.Constants;
+import ir.Epy.MyStock.Database;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import ir.Epy.MyStock.exceptions.HTTPException;
 
@@ -80,6 +81,12 @@ public abstract class StockRequest implements Comparable<StockRequest>{
 
 
     public abstract void process(PrintWriter out) throws CustomerNotFoundException;
+
+    protected void log_transaction(Customer buyer, Customer seller, int quantity) {
+        Database.get_obj().log_stock_transaction(new StockTransactionLog(
+                buyer.id, seller.id, stock.get_symbol(), type , quantity, buyer.getDeposit(), seller.getDeposit()
+        ));
+    }
 
     public int getQuantity() {
         return quantity;

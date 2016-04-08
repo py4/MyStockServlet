@@ -46,6 +46,8 @@ public class MPORequest extends ir.Epy.MyStock.models.StockRequest {
             seller.increase_deposit(buy_price * diff);
 
             out.write(seller.id + " sold " + diff + " shares of " + stock.get_symbol() + " @" + buy_price + " to " + buyer.id+"\n");
+            log_transaction(buyer,seller, diff);
+
             quantity -= diff;
             opposite_head.quantity -= diff;
             if(opposite_head.quantity != 0)

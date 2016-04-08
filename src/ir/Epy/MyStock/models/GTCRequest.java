@@ -33,9 +33,11 @@ public class GTCRequest extends ir.Epy.MyStock.models.StockRequest {
             seller.increase_deposit(buy_head.base_price * diff);
             buyer.increase_share(stock.get_symbol(), diff);
             out.write(seller.id + " sold " + diff + " shares of " + stock.get_symbol() + " @" + buy_head.base_price + " to " + buyer.id+"\n");
+            log_transaction(buyer, seller, quantity);
 
             sell_head.quantity -= diff;
             buy_head.quantity -= diff;
+
 
             if(sell_head.quantity > 0)
                 stock.sell_requests.add(sell_head);
@@ -46,4 +48,10 @@ public class GTCRequest extends ir.Epy.MyStock.models.StockRequest {
         if(!any_successful_trade)
             out.write(Constants.OrderIsQueuedMessage);
     }
+
+    /*private void log_transaction(Customer buyer, Customer seller, Stock stock, int quantity) {
+        Database.get_obj().log_stock_transaction(new StockTransactionLog(
+                buyer.id, seller.id, stock.get_symbol(), "GTC", quantity, buyer.getDeposit(), seller.getDeposit()
+                ));
+    }*/
 }

@@ -1,11 +1,18 @@
 package ir.Epy.MyStock;
+import com.opencsv.CSVWriter;
 import ir.Epy.MyStock.exceptions.CustomerExistsException;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import ir.Epy.MyStock.exceptions.StockNotFoundException;
 import ir.Epy.MyStock.models.Bank;
 import ir.Epy.MyStock.models.Customer;
 import ir.Epy.MyStock.models.Stock;
+import ir.Epy.MyStock.models.StockTransactionLog;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
@@ -18,6 +25,9 @@ public class Database {
     private static Database obj = new Database();
     HashMap<String, Customer> customers = new HashMap<>();
     HashMap<String, Stock> stocks = new HashMap<>();
+    ArrayList<StockTransactionLog> stock_transactions = new ArrayList<>();
+    public final String CSV_FILE_NAME = "backup.csv";
+
     private Bank bank = new Bank();
 
     private Database() {
@@ -66,5 +76,25 @@ public class Database {
 
     public Set<String> getStockSymbols() {
         return stocks.keySet();
+    }
+
+    public void log_stock_transaction(StockTransactionLog s_log)
+    {
+        stock_transactions.add(s_log);
+    }
+
+    public void log_transactions_csv(StringWriter writer) throws IOException {
+        final String[] FILE_HEADER = {"Buyer", "Seller", "instrument", "type of trade", "quantity", "Buyer Remained Money", "Seller Current Money"};
+        CSVWriter csv_printer = new CSVWriter(writer);
+
+        csv_printer.writeNext(FILE_HEADER);
+
+        System.out.println("log size = " + stock_transactions.size());
+        for (StockTransactionLog s_log : stock_transactions) {
+            csv_printer.writeNext(s_log.getRecord());
+        }
+        System.out.println("logged transactions to " + CSV_FILE_NAME);
+        csv_printer.flush();
+        csv_printer.close();
     }
 }

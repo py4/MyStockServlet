@@ -34,7 +34,8 @@
                     مدیریت درخواست‌های مالی</a></li>
                 <li><a class="navbar-brand" href="/stock"><i class="fa fa-shopping-basket"></i>
                     لیست سهام</a></li>
-
+                <li><a class="navbar-brand" href="/admin/log"><i class="fa fa-file"></i>
+                    لاگ</a></li>
             </ul>
         </div>
     </div>
