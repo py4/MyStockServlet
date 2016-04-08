@@ -6,7 +6,9 @@ import ir.Epy.MyStock.models.Bank;
 import ir.Epy.MyStock.models.Customer;
 import ir.Epy.MyStock.models.Stock;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Created by py4_ on 2/16/16.
@@ -60,5 +62,9 @@ public class Database {
 
     public Bank getBank() {
         return bank;
+    }
+
+    public Set<String> getStockSymbols() {
+        return stocks.keySet();
     }
 }

@@ -30,9 +30,10 @@
                     درخواست جدید</a></li>
                 <li><a class="navbar-brand" href="/credit/new"><i class="fa fa-credit-card"></i>
                    درخواست اعتبار</a></li>
-
-                <li><a class="navbar-brand" href="/admin/requests"><i class="fa fa-credit-card"></i>
+                <li><a class="navbar-brand" href="/admin/requests"><i class="fa fa-money"></i>
                     مدیریت درخواست‌های مالی</a></li>
+                <li><a class="navbar-brand" href="/stock"><i class="fa fa-shopping-basket"></i>
+                    لیست سهام</a></li>
 
             </ul>
         </div>

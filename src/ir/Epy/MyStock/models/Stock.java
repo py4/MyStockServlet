@@ -1,5 +1,7 @@
 package ir.Epy.MyStock.models;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.PriorityQueue;
 
@@ -33,5 +35,12 @@ public class Stock {
         return symbol;
     }
 
+    public ArrayList<StockRequest> getBuy_requests() {
+        return new ArrayList<>(buy_requests);
+    }
+
+    public ArrayList<StockRequest> getSell_requests() {
+        return new ArrayList<>(sell_requests);
+    }
 
 }

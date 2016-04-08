@@ -80,4 +80,20 @@ public abstract class StockRequest implements Comparable<StockRequest>{
 
 
     public abstract void process(PrintWriter out) throws CustomerNotFoundException;
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public int getBase_price() {
+        return base_price;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getBy() {
+        return by;
+    }
 }
