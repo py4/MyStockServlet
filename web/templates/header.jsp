@@ -28,6 +28,11 @@
                 <li><a class="navbar-brand" href="/customers/new"><i class="fa fa-user"></i>ایجاد کاربر</a></li>
                 <li><a class="navbar-brand" href="/requests/new"><i class="fa fa-newspaper-o"></i>
                     درخواست جدید</a></li>
+                <li><a class="navbar-brand" href="/credit/new"><i class="fa fa-credit-card"></i>
+                   درخواست اعتبار</a></li>
+
+                <li><a class="navbar-brand" href="/admin/requests"><i class="fa fa-credit-card"></i>
+                    مدیریت درخواست‌های مالی</a></li>
 
             </ul>
         </div>

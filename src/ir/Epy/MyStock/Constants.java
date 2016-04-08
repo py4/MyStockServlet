@@ -16,4 +16,8 @@ public class Constants {
     public static final String InvalidTypeMessage = "Invalid type";
     public static final String OrderIsQueuedMessage = "Order is queued";
     public static final String OrderDeclinedMessage = "Order is declined";
+    public static final String CreditRequestAddedMessage = "Credit Request queued";
+    public static final String InvalidCreditValueMessage = "Invalid value for credit";
+    public static final String CreditRequestNotFoundMessage = "Unknown credit request";
+    public static final String CreditRequestProcessedMessage = "Credit request processed";
 }

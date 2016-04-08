@@ -1,8 +1,8 @@
 package ir.Epy.MyStock;
-;
 import ir.Epy.MyStock.exceptions.CustomerExistsException;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import ir.Epy.MyStock.exceptions.StockNotFoundException;
+import ir.Epy.MyStock.models.Bank;
 import ir.Epy.MyStock.models.Customer;
 import ir.Epy.MyStock.models.Stock;
 
@@ -16,6 +16,7 @@ public class Database {
     private static Database obj = new Database();
     HashMap<String, Customer> customers = new HashMap<>();
     HashMap<String, Stock> stocks = new HashMap<>();
+    private Bank bank = new Bank();
 
     private Database() {
         try {
@@ -57,5 +58,7 @@ public class Database {
         return result;
     }
 
-
+    public Bank getBank() {
+        return bank;
+    }
 }
