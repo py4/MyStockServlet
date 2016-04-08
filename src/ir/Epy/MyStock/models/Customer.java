@@ -72,6 +72,9 @@ public class Customer {
         shares.put(symbol, get_share_count(symbol) - count);
     }
 
+    public int getDeposit() {
+        return deposit;
+    }
     public void log() {
         System.out.println("id:  "+id);
         System.out.println("name:  "+name);

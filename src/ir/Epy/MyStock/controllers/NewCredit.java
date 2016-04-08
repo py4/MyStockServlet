@@ -42,6 +42,8 @@ public class NewCredit extends HttpServlet {
                 Bank b  = Database.get_obj().getBank();
                 b.add_request(id,Integer.parseInt(credit),is_deposit);
                 request.setAttribute("success_message", Constants.CreditRequestAddedMessage);
+                request.setAttribute("credit", Database.get_obj().get_customer(id).getDeposit());
+                request.setAttribute("id", id);
                 request.getRequestDispatcher("/credit/index.jsp").forward(request, response);
                 return;
             } catch (CustomerNotFoundException e) {
