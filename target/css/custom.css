@@ -1,0 +1,352 @@
+@import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
+
+body {
+    font-family: 'Droid Arabic Naskh', serif;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+tr:nth-of-type(odd) {
+    background: #eee;
+}
+th {
+    background: #333;
+    color: white;
+    font-weight: bold;
+}
+td, th {
+    padding: 6px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+table {
+    border: 1px solid #ccc;
+    width: 100%;
+    margin:0;
+    padding:0;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table tr {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;
+}
+
+table th {
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+@media screen and (max-width: 600px) {
+
+    table {
+        border: 0;
+    }
+
+    table thead {
+        display: none;
+    }
+
+    table tr {
+        margin-bottom: 10px;
+        display: block;
+        border-bottom: 2px solid #ddd;
+    }
+
+    table td {
+        display: block;
+        text-align: right;
+        font-size: 13px;
+        border-bottom: 1px dotted #ccc;
+    }
+
+    table td:last-child {
+        border-bottom: 0;
+    }
+
+    table td:before {
+        content: attr(data-label);
+        float: right;
+        padding-left: 5px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+}
+
+.custom-danger {
+    -webkit-border-radius: 15;
+    -moz-border-radius: 15;
+    border-radius: 15px;
+    color: #ffffff;
+    background: #d90303;
+    padding: 5px 5px 5px 5px;
+    text-decoration: none;
+}
+
+
+.custom-success {
+    -webkit-border-radius: 15;
+    -moz-border-radius: 15;
+    border-radius: 15px;
+    color: #ffffff;
+    background: #5cb85c;
+    padding: 5px 5px 5px 5px;
+    text-decoration: none;
+}
+
+.custom-default {
+    -webkit-border-radius: 15;
+    -moz-border-radius: 15;
+    border-radius: 15px;
+    color: black;
+    background: #00c1db;
+    padding: 5px 5px 5px 5px;
+    text-decoration: none;
+}
+
+
+/*body {*/
+/*color: #777;*/
+/*}*/
+/** {*/
+/*box-sizing: border-box;*/
+/*}*/
+
+#layout,
+#menu,
+.menu-link {
+    -webkit-transition: all 0.1s ease-out;
+    -moz-transition: all 0.1s ease-out;
+    -ms-transition: all 0.1s ease-out;
+    -o-transition: all 0.1s ease-out;
+    transition: all 0.1s ease-out;
+}
+
+/* general menu style*/
+#menu {
+    margin-right:-150px; /* "#menu" width */
+    display: inline-block;
+    width: 150px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    background: #191818;
+    /*float: right;*/
+}
+
+/*#menu .nav-menu-header {*/
+/*font-size: 110%;*/
+/*color:#ffffff;;*/
+/*margin: 0;*/
+/*display: block;*/
+/*text-decoration: none;*/
+/*white-space: nowrap;*/
+/*}*/
+#menu .nav-menu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#menu .nav-menu-item{
+    position: relative;
+    padding: 0;
+    margin: 0;
+    height:100%;
+}
+#menu a {
+    color: #999;
+    border: none;
+    padding: 0.6em 0 0.6em 0.6em;
+    display: block;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+#menu ul {
+    border: none;
+    background: transparent;
+    border-top: 1px solid #333333;
+}
+/*=====================================*/
+/* on hover */
+#menu li a:hover{
+    background: #333333;
+    outline:0;
+}
+
+/* selected items */
+#menu .nav-menu-header {
+    background: lightyellow;
+}
+#menu .nav-item-active {
+    background: #1f8dd6;
+}
+
+#menu .nav-item-active a {
+    color: #fff;
+}
+
+/*disabled items*/
+#menu .nav-menu-disabled {
+    pointer-events: none;
+    opacity: .5;
+}
+
+/*************************************************************/
+/* layout */
+#layout {
+    position: relative;
+    padding-right: 150px;
+}
+
+.content {
+    margin: 0 auto;
+    padding: 0 1em;
+    max-width: 800px;
+    margin-bottom: 50px;
+    line-height: 1.6em;
+    display: inline-block;
+    /*overflow: auto;*/
+}
+
+/****************************************************************/
+
+/* menu link */
+#menu-link-label{
+    position: fixed;
+    display: block; /* show this only on small screens */
+    top: 0;
+    right: 0; /* "#menu width" */
+    background: #000;
+    background: rgba(0,0,0,0.7);
+    font-size: 10px; /* change this value to increase/decrease button size */
+    z-index: 10;
+    width: 1em;
+    height: auto;
+    padding: 1.1em 1.6em;
+}
+.menu-link {
+    display:  none;
+}
+.menu-link:hover,
+.menu-link:focus {
+    background: #000;
+}
+
+#menu-link-label:hover,
+#menu-link-label:focus {
+    background: #000;
+    cursor: pointer;
+}
+#menu-link:checked + label{
+    right:150px;
+}
+#menu-link:checked ~ div{
+    right: 150px;
+}
+#menu-link-label span {
+    position: relative;
+    display: block;
+}
+
+#menu-link-label span,
+#menu-link-label span:before,
+#menu-link-label span:after {
+    background-color: #fff;
+    width: 100%;
+    height: 0.1em;
+}
+
+#menu-link-label span:before,
+#menu-link-label span:after {
+    position: absolute;
+    margin-top: -0.6em;
+    content: " ";
+}
+
+#menu-link-label span:after {
+    margin-top: 0.6em;
+}
+/*******************************************************************/
+/* responsive */
+/* show menu */
+@media (min-width: 48em) {
+    body{
+        background: #eff0e3;
+    }
+    /*.content {*/
+    /*padding-left: 1em;*/
+    /*padding-right: 1em;*/
+    /*}*/
+
+    /*#layout {*/
+    /*padding-right: 150px; !* left col width "#menu" *!*/
+    /*right: 0;*/
+    /*}*/
+    #menu {
+        right: 150px;
+        width: 150px;
+    }
+
+    .menu-link {
+        position: fixed;
+        right: 150px;
+        display: none;
+    }
+
+}
+
+/* hide menu */
+@media (max-width: 48em){
+    body{
+        background: lightseagreen;
+    }
+    #layout{
+        position: relative;
+        right: 150px;
+    }
+    #menu {
+        right:0;
+    }
+    .content {
+        margin: 10px;
+        padding-left: 150px;
+        width: 80vw;
+    }
+}
+
+
+/**********************************************/
+.nav-menu-header {
+    position: relative;
+}
+.nav-menu-header img{
+    max-width: 100%;
+    height: auto;
+    /*position: absolute;*/
+    /*width: 100px;*/
+    /*height: 100px;*/
+}
+
+
+#menu-header-fanni:hover{
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -ms-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    opacity: 0;
+    /*content: url("assets/nasdaq_icon.jpg");*/
+}
