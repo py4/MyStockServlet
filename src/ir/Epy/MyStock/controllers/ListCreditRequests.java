@@ -1,11 +1,6 @@
 package ir.Epy.MyStock.controllers;
 
-import ir.Epy.MyStock.Constants;
-import ir.Epy.MyStock.Database;
-import ir.Epy.MyStock.exceptions.CreditRequestNotFoundException;
-import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
-import ir.Epy.MyStock.models.Bank;
-import ir.Epy.MyStock.models.CreditRequest;
+import ir.Epy.MyStock.database.Database;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by esihaj on 4/8/16.

@@ -5,10 +5,9 @@ package ir.Epy.MyStock.controllers;
  */
 
 import ir.Epy.MyStock.Constants;
-import ir.Epy.MyStock.Database;
+import ir.Epy.MyStock.database.Database;
 import ir.Epy.MyStock.exceptions.CreditRequestNotFoundException;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
-import ir.Epy.MyStock.exceptions.InvalidCreditValueRequest;
 import ir.Epy.MyStock.models.Bank;
 import ir.Epy.MyStock.models.CreditRequest;
 
@@ -18,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @WebServlet("/admin/credit_check")
@@ -50,6 +50,8 @@ public class AdminCreditCheck extends HttpServlet {
                 errors.add(Constants.CustomerNotFoundMessage);
             } catch (CreditRequestNotFoundException e) {
                 errors.add(Constants.CreditRequestNotFoundMessage);
+            } catch (SQLException e) {
+                errors.add(Constants.DB_ERROR);
             }
         }
 

@@ -12,13 +12,16 @@ public class Customer {
     private String name;
     private String family;
     private int deposit;
-    private HashMap<String, Integer> shares = new HashMap<>();
+//    private HashMap<String, Integer> shares;//@TODO lazy loading
 
-    public Customer(String id, String name, String family) {
+    public Customer() {
+    }
+
+    public Customer(String id, String name, String family, int deposit) {
         this.id = id;
         this.name = name;
         this.family = family;
-        this.deposit = 0;
+        this.deposit = deposit;
     }
 
     public Boolean is_admin() {

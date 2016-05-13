@@ -1,10 +1,11 @@
 package ir.Epy.MyStock.models;
 
-import ir.Epy.MyStock.Database;
+import ir.Epy.MyStock.database.Database;
 import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.PriorityQueue;
 
 /**
@@ -16,7 +17,7 @@ public class IOCRequest extends ir.Epy.MyStock.models.StockRequest {
     }
 
     @Override
-    public void process(PrintWriter out) throws CustomerNotFoundException {
+    public void process(PrintWriter out) throws CustomerNotFoundException, SQLException {
 
         if(!IOC_satisfiable()) {
             out.write(Constants.OrderDeclinedMessage);

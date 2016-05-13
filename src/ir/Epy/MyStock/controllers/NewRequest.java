@@ -1,11 +1,6 @@
 package ir.Epy.MyStock.controllers;
 
-import ir.Epy.MyStock.Constants;
-import ir.Epy.MyStock.Database;
-import ir.Epy.MyStock.exceptions.*;
-import ir.Epy.MyStock.models.Customer;
-import ir.Epy.MyStock.models.Stock;
-import ir.Epy.MyStock.models.StockRequest;
+import ir.Epy.MyStock.database.Database;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,11 +26,12 @@ public class NewRequest extends HttpServlet {
         Integer quantity = Integer.parseInt(request.getParameter("quantity"));
         String type = request.getParameter("type");
         String buy_or_sell = request.getParameter("buy_or_sell");
-        Stock stock = null;
-
         StringWriter org = new StringWriter();
         PrintWriter msg = new PrintWriter(org);
-        try {
+
+        errors = Database.get_obj().addRequest(id, symbol, price, quantity, type, buy_or_sell, msg);
+
+        /*try {
             Customer customer = Database.get_obj().get_customer(id);
             try {
                 stock = Database.get_obj().get_stock(symbol);
@@ -60,7 +56,7 @@ public class NewRequest extends HttpServlet {
             errors.add(Constants.NotEnoughMoneyMessage);
         } catch (NotEnoughShareException e) {
             errors.add(Constants.NotEnoughShareMessage);
-        }
+        } */
 
         if(errors.size() > 0) {
             request.setAttribute("errors", errors);
@@ -75,7 +71,7 @@ public class NewRequest extends HttpServlet {
         request.getRequestDispatcher("/requests/new.jsp").forward(request, response);
     }
 
-    private void buy(Customer customer, Stock stock, Integer price, Integer quantity, String type, PrintWriter msg) throws NotEnoughMoneyException {
+    /*private void buy(Customer customer, Stock stock, Integer price, Integer quantity, String type, PrintWriter msg) throws NotEnoughMoneyException {
         String symbol = stock.get_symbol();
         StockRequest req = StockRequest.create_request(customer.id, stock, price, quantity, type, true);
         if(type.equals("GTC")) {
@@ -106,5 +102,5 @@ public class NewRequest extends HttpServlet {
         } catch (CustomerNotFoundException e) {
             e.printStackTrace();
         }
-    }
+    } */
 }

@@ -1,10 +1,11 @@
 package ir.Epy.MyStock.models;
 
 import ir.Epy.MyStock.Constants;
-import ir.Epy.MyStock.Database;
+import ir.Epy.MyStock.database.Database;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.PriorityQueue;
 
 /**
@@ -17,7 +18,7 @@ public class MPORequest extends ir.Epy.MyStock.models.StockRequest {
     }
 
     @Override
-    public void process(PrintWriter out) throws CustomerNotFoundException {
+    public void process(PrintWriter out) throws CustomerNotFoundException, SQLException {
         if(!MPO_satisfiable()) {
             out.write(Constants.OrderDeclinedMessage);
             return;
@@ -57,7 +58,7 @@ public class MPORequest extends ir.Epy.MyStock.models.StockRequest {
         }
     }
 
-    private boolean MPO_satisfiable() throws CustomerNotFoundException {
+    private boolean MPO_satisfiable() throws CustomerNotFoundException, SQLException {
         PriorityQueue<StockRequest> backup = new PriorityQueue<>(get_opposite_queue());
         int backup_quantity = quantity;
         int price_sum = 0;

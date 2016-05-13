@@ -20,5 +20,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 7.0.68" level="application_server_libraries" />
+    <orderEntry type="library" name="opencsv-3.7 (2)" level="project" />
+    <orderEntry type="library" name="gson-2.3.1" level="project" />
+    <orderEntry type="library" name="json-simple-1.1.1" level="project" />
   </component>
 </module>

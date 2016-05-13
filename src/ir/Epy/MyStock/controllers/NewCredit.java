@@ -1,8 +1,7 @@
 package ir.Epy.MyStock.controllers;
 
 import ir.Epy.MyStock.Constants;
-import ir.Epy.MyStock.Database;
-import ir.Epy.MyStock.exceptions.CustomerExistsException;
+import ir.Epy.MyStock.database.Database;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import ir.Epy.MyStock.exceptions.InvalidCreditValueRequest;
 import ir.Epy.MyStock.models.Bank;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -52,6 +52,8 @@ public class NewCredit extends HttpServlet {
                 errors.add(Constants.InvalidCreditValueMessage);
             } catch (NumberFormatException e) {
                 errors.add(Constants.InvalidCreditValueMessage);
+            } catch (SQLException e) {
+                errors.add(Constants.DB_ERROR);
             }
         }
 

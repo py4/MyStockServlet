@@ -13,6 +13,7 @@ public class Constants {
     public static final String NotEnoughMoneyMessage = "Not enough money";
     public static final String NotEnoughShareMessage = "Not enough share";
     public static final String SymbolNotFoundMessage = "Invalid symbol id";
+    public static final String SymbolExistsMessage = "Repeated symbol";
     public static final String InvalidTypeMessage = "Invalid type";
     public static final String OrderIsQueuedMessage = "Order is queued";
     public static final String OrderDeclinedMessage = "Order is declined";
@@ -21,4 +22,5 @@ public class Constants {
     public static final String CreditRequestNotFoundMessage = "Unknown credit request";
     public static final String CreditRequestProcessedMessage = "Credit request processed";
     public static final String CSVLogFailedMessage = "Failed to log to csv file";
+    public static final String DB_ERROR = "Failed to connect to DB, Please Contact the system administrator";
 }

@@ -1,11 +1,11 @@
 package ir.Epy.MyStock.models;
 
-import ir.Epy.MyStock.Database;
+import ir.Epy.MyStock.database.Database;
 import ir.Epy.MyStock.exceptions.CreditRequestNotFoundException;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import ir.Epy.MyStock.exceptions.InvalidCreditValueRequest;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -21,7 +21,7 @@ public class Bank {
         return requests.values();
     }
 
-    public void add_request(String customer_id, int credit, boolean is_deposit) throws InvalidCreditValueRequest, CustomerNotFoundException {
+    public void add_request(String customer_id, int credit, boolean is_deposit) throws InvalidCreditValueRequest, CustomerNotFoundException, SQLException {
         Database.get_obj().get_customer(customer_id); // just to check if it exists
         if (credit < 0)
             throw new InvalidCreditValueRequest();
@@ -29,7 +29,7 @@ public class Bank {
         requests.put(req_id, new CreditRequest(req_id, customer_id, credit, is_deposit));
     }
 
-    public void process_request(String req_id, CreditRequest.TransactionStatus status) throws CustomerNotFoundException, CreditRequestNotFoundException {
+    public void process_request(String req_id, CreditRequest.TransactionStatus status) throws CustomerNotFoundException, CreditRequestNotFoundException, SQLException {
         CreditRequest rq = requests.get(req_id);
         if(rq == null)
             throw new CreditRequestNotFoundException();

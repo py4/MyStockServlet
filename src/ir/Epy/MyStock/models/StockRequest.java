@@ -1,13 +1,11 @@
 package ir.Epy.MyStock.models;
 
-import ir.Epy.MyStock.Constants;
-import ir.Epy.MyStock.Database;
+import ir.Epy.MyStock.database.Database;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
-import ir.Epy.MyStock.exceptions.HTTPException;
 
 import java.io.PrintWriter;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.PriorityQueue;
 
 /**
@@ -80,7 +78,7 @@ public abstract class StockRequest implements Comparable<StockRequest>{
     }
 
 
-    public abstract void process(PrintWriter out) throws CustomerNotFoundException;
+    public abstract void process(PrintWriter out) throws CustomerNotFoundException, SQLException;
 
     protected void log_transaction(Customer buyer, Customer seller, int quantity) {
         Database.get_obj().log_stock_transaction(new StockTransactionLog(
@@ -102,5 +100,9 @@ public abstract class StockRequest implements Comparable<StockRequest>{
 
     public String getBy() {
         return by;
+    }
+
+    public HashMap<String,String> getReport() {
+        return new HashMap<String,String>();
     }
 }
