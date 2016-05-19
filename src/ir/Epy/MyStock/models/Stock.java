@@ -1,9 +1,7 @@
 package ir.Epy.MyStock.models;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.PriorityQueue;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * Created by py4_ on 2/17/16.
@@ -41,6 +39,20 @@ public class Stock {
 
     public ArrayList<StockRequest> getSell_requests() {
         return new ArrayList<>(sell_requests);
+    }
+
+    public ArrayList<HashMap<String,String>> getSellReport() {
+        ArrayList<HashMap<String,String>> result = new ArrayList<HashMap<String,String>>();
+        for(StockRequest request : sell_requests)
+            result.add(request.getReport());
+        return result;
+    }
+
+    public ArrayList<HashMap<String,String>> getBuyReport() {
+        ArrayList<HashMap<String,String>> result = new ArrayList<HashMap<String,String>>();
+        for(StockRequest request : buy_requests)
+            result.add(request.getReport());
+        return result;
     }
 
 }

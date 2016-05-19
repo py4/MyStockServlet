@@ -1,12 +1,7 @@
 package ir.Epy.MyStock;
 import com.opencsv.CSVWriter;
-import ir.Epy.MyStock.exceptions.CustomerExistsException;
-import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
-import ir.Epy.MyStock.exceptions.StockNotFoundException;
-import ir.Epy.MyStock.models.Bank;
-import ir.Epy.MyStock.models.Customer;
-import ir.Epy.MyStock.models.Stock;
-import ir.Epy.MyStock.models.StockTransactionLog;
+import ir.Epy.MyStock.exceptions.*;
+import ir.Epy.MyStock.models.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -56,6 +51,20 @@ public class Database {
         return customer;
     }
 
+    public ArrayList<Customer> get_customers() {
+        ArrayList<Customer> result = new ArrayList<Customer>();
+        for(Customer customer : customers.values())
+            result.add(customer);
+        return result;
+    }
+
+    public ArrayList<String> get_stock_symbols() {
+        ArrayList<String> result = new ArrayList<String>();
+        for(Stock stock : stocks.values())
+            result.add(stock.get_symbol());
+        return result;
+    }
+
     //@// TODO: 2/17/16 How to check if a stock exists? admin should have sold it or it is done by a request to the server in the previous project?
     public Stock get_stock(String symbol) throws StockNotFoundException {
         Stock stock = stocks.get(symbol);
@@ -96,5 +105,79 @@ public class Database {
         System.out.println("logged transactions to " + CSV_FILE_NAME);
         csv_printer.flush();
         csv_printer.close();
+    }
+
+    public ArrayList<String> addRequest(String id, String symbol, int price, int quantity, String type, String buy_or_sell, PrintWriter msg) {
+        ArrayList<String> errors = new ArrayList<String>();
+        Stock stock = null;
+        try {
+            Customer customer = Database.get_obj().get_customer(id);
+            try {
+                stock = Database.get_obj().get_stock(symbol);
+                if (buy_or_sell.equals("buy"))
+                    buy(customer, stock, price, quantity, type, msg);
+                else
+                    sell(customer, stock, price, quantity, type, msg);
+            } catch (StockNotFoundException e) {
+                if(customer.is_admin() && buy_or_sell.equals("sell")) {
+                    stock = Database.get_obj().add_stock(symbol);
+                    StockRequest req = StockRequest.create_request(id, stock, price, quantity,type,false);
+                    customer.increase_share(symbol, 0);
+                    if(type.equals("GTC"))
+                        stock.add_sell_req(req);
+                    req.process(msg);
+                } else
+                    errors.add(Constants.SymbolNotFoundMessage);
+            }
+        } catch (CustomerNotFoundException e) {
+            errors.add(Constants.CustomerNotFoundMessage);
+        } catch (NotEnoughMoneyException e) {
+            errors.add(Constants.NotEnoughMoneyMessage);
+        } catch (NotEnoughShareException e) {
+            errors.add(Constants.NotEnoughShareMessage);
+        }
+        return errors;
+    }
+
+    private void buy(Customer customer, Stock stock, Integer price, Integer quantity, String type, PrintWriter msg) throws NotEnoughMoneyException {
+        String symbol = stock.get_symbol();
+        StockRequest req = StockRequest.create_request(customer.id, stock, price, quantity, type, true);
+        if(type.equals("GTC")) {
+            if (!customer.can_buy(quantity, price))
+                throw new NotEnoughMoneyException();
+            customer.decrease_deposit(price * quantity);
+            stock.add_buy_req(req);
+        }
+        try {
+            req.process(msg);
+        } catch (CustomerNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sell(Customer customer, Stock stock, Integer price, Integer quantity, String type, PrintWriter msg) throws NotEnoughShareException {
+        String symbol = stock.get_symbol();
+        if (!customer.can_sell(symbol, quantity))
+            throw new NotEnoughShareException();
+
+        StockRequest req = StockRequest.create_request(customer.id, stock, price, quantity,type,false);
+        if(type.equals("GTC")) {
+            customer.decrease_share(symbol, quantity);
+            stock.add_sell_req(req);
+        }
+        try {
+            req.process(msg);
+        } catch (CustomerNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<HashMap<String,String>> getReport() {
+        ArrayList<HashMap<String,String>> result = new ArrayList<HashMap<String, String>>();
+        for(Stock stock : stocks.values()) {
+            result.addAll(stock.getBuyReport());
+            result.addAll(stock.getSellReport());
+        }
+        return result;
     }
 }

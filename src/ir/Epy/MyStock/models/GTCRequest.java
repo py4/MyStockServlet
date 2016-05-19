@@ -4,6 +4,7 @@ import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.Database;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 /**
  * Created by py4_ on 2/24/16.
@@ -47,6 +48,16 @@ public class GTCRequest extends ir.Epy.MyStock.models.StockRequest {
 
         if(!any_successful_trade)
             out.write(Constants.OrderIsQueuedMessage);
+    }
+
+    public HashMap<String,String> getReport() {
+        HashMap<String, String> result = new HashMap<String, String>();
+        result.put("symbol", stock.get_symbol());
+        result.put("by", by);
+        result.put("basePrice", Integer.toString(base_price));
+        result.put("quantity", Integer.toString(quantity));
+        result.put("is_buy", (is_buy ? "true" : "false"));
+        return result;
     }
 
     /*private void log_transaction(Customer buyer, Customer seller, Stock stock, int quantity) {

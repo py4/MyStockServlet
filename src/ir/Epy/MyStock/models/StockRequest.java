@@ -8,6 +8,7 @@ import ir.Epy.MyStock.exceptions.HTTPException;
 import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.PriorityQueue;
 
 /**
@@ -102,5 +103,9 @@ public abstract class StockRequest implements Comparable<StockRequest>{
 
     public String getBy() {
         return by;
+    }
+
+    public HashMap<String,String> getReport() {
+        return new HashMap<String,String>();
     }
 }

@@ -18,7 +18,7 @@ public class Customer {
         this.id = id;
         this.name = name;
         this.family = family;
-        this.deposit = 0;
+        this.deposit = 10000;
     }
 
     public Boolean is_admin() {
