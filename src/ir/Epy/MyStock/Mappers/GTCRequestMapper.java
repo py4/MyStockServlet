@@ -11,7 +11,7 @@ public class GTCRequestMapper {
 
     public static GTCRequest mapRow(ResultSet rs){
         try {
-            return new GTCRequest(rs.getInt("ID"), rs.getString("CUSTOMER_ID"), rs.getString("STOCK_SYMBOL"), rs.getInt("BASE_PRICE"), rs.getInt("QUANTITY"), rs.getString("TYPE"), rs.getBoolean("IS_BUY"));
+            return new GTCRequest(rs.getInt("ID"), rs.getString("CUSTOMER_ID"), rs.getString("STOCK_SYMBOL"), rs.getInt("BASE_PRICE"), rs.getInt("QUANTITY"), "GTC", rs.getBoolean("IS_BUY"));
         } catch (SQLException e) {
             e.printStackTrace();
         }

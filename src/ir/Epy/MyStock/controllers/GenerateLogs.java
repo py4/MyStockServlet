@@ -4,7 +4,6 @@ import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.Database;
 import ir.Epy.MyStock.exceptions.CreditRequestNotFoundException;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
-import ir.Epy.MyStock.models.Bank;
 import ir.Epy.MyStock.models.CreditRequest;
 
 import javax.servlet.ServletException;

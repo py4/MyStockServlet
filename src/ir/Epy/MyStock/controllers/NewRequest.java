@@ -1,6 +1,7 @@
 package ir.Epy.MyStock.controllers;
 
 import ir.Epy.MyStock.Constants;
+import ir.Epy.MyStock.DAOs.CustomerDAO;
 import ir.Epy.MyStock.Database;
 import ir.Epy.MyStock.exceptions.*;
 import ir.Epy.MyStock.models.Customer;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -34,7 +36,38 @@ public class NewRequest extends HttpServlet {
         StringWriter org = new StringWriter();
         PrintWriter msg = new PrintWriter(org);
 
-        errors = Database.get_obj().addRequest(id, symbol, price, quantity, type, buy_or_sell, msg);
+
+        try {
+            Customer customer = CustomerDAO.I().find(id);
+            if (buy_or_sell.equals("buy")) {
+                StockRequest req = StockRequest.create_request(id, symbol, price, quantity, type, true);
+                if(!customer.can_buy(quantity, price))
+                    errors.add(Constants.NotEnoughMoneyMessage);
+                else {
+                    customer.decrease_deposit(price * quantity);
+                    req.process(msg);
+                }
+            }
+            else {
+                if(!customer.can_sell(symbol, quantity))
+                    errors.add(Constants.NotEnoughShareMessage);
+                StockRequest req = StockRequest.create_request(id, symbol, price, quantity, type, false);
+                if(type.equals("GTC"))
+                    customer.decrease_share(symbol, quantity);
+                req.process(msg);
+            }
+        } catch (StockNotFoundException e) {
+            errors.add(Constants.SymbolNotFoundMessage);
+        } catch (CustomerNotFoundException e) {
+            errors.add(Constants.CustomerNotFoundMessage);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+        //errors = Database.get_obj().addRequest(id, symbol, price, quantity, type, buy_or_sell, msg);
 
         /*try {
             Customer customer = Database.get_obj().get_customer(id);

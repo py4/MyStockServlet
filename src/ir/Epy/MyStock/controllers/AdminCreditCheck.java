@@ -5,11 +5,11 @@ package ir.Epy.MyStock.controllers;
  */
 
 import ir.Epy.MyStock.Constants;
+import ir.Epy.MyStock.DAOs.CreditRequestDAO;
 import ir.Epy.MyStock.Database;
 import ir.Epy.MyStock.exceptions.CreditRequestNotFoundException;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import ir.Epy.MyStock.exceptions.InvalidCreditValueRequest;
-import ir.Epy.MyStock.models.Bank;
 import ir.Epy.MyStock.models.CreditRequest;
 
 import javax.servlet.ServletException;
@@ -18,7 +18,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static ir.Epy.MyStock.Constants.AcceptStatus;
+import static ir.Epy.MyStock.Constants.RejectStatus;
 
 @WebServlet("/admin/credit_check")
 public class AdminCreditCheck extends HttpServlet {
@@ -32,24 +36,26 @@ public class AdminCreditCheck extends HttpServlet {
         String action = request.getParameter("action");
         if(action == null || action.equals(""))
             errors.add("Action not provided");
-        CreditRequest.TransactionStatus action_status = CreditRequest.TransactionStatus.PENDING;
+
+        int action_status = 0;
         if(action.equals("accept"))
-            action_status = CreditRequest.TransactionStatus.ACCEPTED;
+            action_status = AcceptStatus;
         else if (action.equals("deny"))
-            action_status = CreditRequest.TransactionStatus.REJECTED;
+            action_status = RejectStatus;
         else errors.add("Action not defined");
 
         if(errors.size() == 0) {
             try {
-                Bank b  = Database.get_obj().getBank();
-                b.process_request(req_id,action_status);
+                CreditRequestDAO.I().find(req_id).process_request(action_status);
                 request.setAttribute("success_message", Constants.CreditRequestProcessedMessage + ": " + req_id +" [" + action + "]");
                 request.getRequestDispatcher("/admin/requests").forward(request, response);
                 return;
-            } catch (CustomerNotFoundException e) {
-                errors.add(Constants.CustomerNotFoundMessage);
             } catch (CreditRequestNotFoundException e) {
                 errors.add(Constants.CreditRequestNotFoundMessage);
+            } catch (SQLException e) {
+                errors.add(Constants.SQLExceptionMessage);
+            } catch (CustomerNotFoundException e) {
+                e.printStackTrace();
             }
         }
 

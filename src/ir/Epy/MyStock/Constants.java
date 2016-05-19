@@ -21,6 +21,10 @@ public class Constants {
     public static final String CreditRequestNotFoundMessage = "Unknown credit request";
     public static final String CreditRequestProcessedMessage = "Credit request processed";
     public static final String CSVLogFailedMessage = "Failed to log to csv file";
+    public static final String SQLExceptionMessage = "We messed up somewhere with the fuck' SQL...";
+    public static final Integer PendingStatus = 0;
+    public static final Integer AcceptStatus = 1;
+    public static final Integer RejectStatus = 2;
     public static final Integer IOC_ID = -1;
     public static final Integer MPO_ID = -2;
     /*****************************************************************************/

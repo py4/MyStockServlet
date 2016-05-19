@@ -90,6 +90,11 @@ public class DAO {
         return DBConnection.createStatement().executeQuery(query);
     }
 
+    public ResultSet all() throws SQLException {
+        ResultSet result = null;
+        return DBConnection.createStatement().executeQuery("SELECT * FROM "+TABLE_NAME);
+    }
+
     public void create(Object... args) throws SQLException {
         ResultSet result = null;
         String query = "INSERT INTO "+TABLE_NAME+" "+stringify_fields(false, db_fields) + " VALUES " + stringify_fields(true, to_string(new ArrayList<Object>(Arrays.asList(args))));

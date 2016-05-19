@@ -1,10 +1,11 @@
 package ir.Epy.MyStock.controllers;
 
 import ir.Epy.MyStock.Constants;
+import ir.Epy.MyStock.DAOs.CreditRequestDAO;
+import ir.Epy.MyStock.DAOs.CustomerDAO;
 import ir.Epy.MyStock.Database;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import ir.Epy.MyStock.exceptions.InvalidCreditValueRequest;
-import ir.Epy.MyStock.models.Bank;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static ir.Epy.MyStock.Constants.PendingStatus;
 
 /**
  * Created customer_id esihaj on 4/8/16.
@@ -38,18 +42,19 @@ public class NewCredit extends HttpServlet {
 
         if(errors.size() == 0) {
             try {
-                Bank b  = Database.get_obj().getBank();
-                b.add_request(id,Integer.parseInt(credit),is_deposit);
+                CreditRequestDAO.I().create(id, Integer.parseInt(credit), PendingStatus);
                 request.setAttribute("success_message", Constants.CreditRequestAddedMessage);
-                request.setAttribute("credit", Database.get_obj().get_customer(id).getDeposit());
+                request.setAttribute("credit", CustomerDAO.I().find(id).getDeposit());
                 request.setAttribute("id", id);
                 request.getRequestDispatcher("/credit/index.jsp").forward(request, response);
                 return;
             } catch (CustomerNotFoundException e) {
                 errors.add(Constants.CustomerNotFoundMessage);
-            } catch (InvalidCreditValueRequest e) {
-                errors.add(Constants.InvalidCreditValueMessage);
             } catch (NumberFormatException e) {
+                errors.add(Constants.InvalidCreditValueMessage);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (InvalidCreditValueRequest invalidCreditValueRequest) {
                 errors.add(Constants.InvalidCreditValueMessage);
             }
         }

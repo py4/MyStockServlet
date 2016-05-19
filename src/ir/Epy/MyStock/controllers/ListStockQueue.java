@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -36,6 +37,8 @@ public class ListStockQueue extends HttpServlet {
                 return;
             } catch (StockNotFoundException e) {
                 errors.add(Constants.SymbolNotFoundMessage);
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
 
