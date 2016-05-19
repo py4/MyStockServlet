@@ -3,7 +3,7 @@ package ir.Epy.MyStock;
 import java.sql.*;
 
 /**
- * Created by py4_ on 5/19/16.
+ * Created customer_id py4_ on 5/19/16.
  */
 public class DBConnection {
     private static DBConnection ourInstance = new DBConnection();

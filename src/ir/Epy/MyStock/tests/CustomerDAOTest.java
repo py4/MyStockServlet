@@ -66,5 +66,22 @@ public class CustomerDAOTest {
             e.printStackTrace();
         }
 
+        try {
+            customer.name = "HASSAN";
+            CustomerDAO.I().updateOrCreate(customer);
+            Customer c = CustomerDAO.I().find("2");
+            assert (c.name.equals("HASSAN"));
+            customer.id = "3";
+            customer.name = "REZA";
+            CustomerDAO.I().updateOrCreate(customer);
+            c = CustomerDAO.I().find("3");
+            assert(c.name.equals("REZA"));
+            assert(c.id.equals("3"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (CustomerNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 }

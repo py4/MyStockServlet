@@ -1,56 +1,48 @@
 package ir.Epy.MyStock.models;
 
-import java.lang.reflect.Array;
+import ir.Epy.MyStock.DAOs.GTCDAO;
+
+import java.sql.SQLException;
 import java.util.*;
 
 /**
- * Created by py4_ on 2/17/16.
+ * Created customer_id py4_ on 2/17/16.
  */
 public class Stock {
     private String symbol;
-    PriorityQueue<StockRequest> sell_requests = new PriorityQueue<>(2);
-    PriorityQueue<StockRequest> buy_requests = new PriorityQueue<>(2, Collections.<StockRequest>reverseOrder());
 
-    public Stock() {
-    }
+    public Stock() {}
 
     public Stock(String symbol) {
         this.symbol = symbol;
-    }
-
-    public void add_sell_req(StockRequest req) {
-        sell_requests.add(req);
-    }
-
-    public void add_buy_req(StockRequest req) {
-        buy_requests.add(req);
-    }
-
-    public void log() {
     }
 
     public String get_symbol() {
         return symbol;
     }
 
-    public ArrayList<StockRequest> getBuy_requests() {
-        return new ArrayList<>(buy_requests);
+    public PriorityQueue<StockRequest> getBuyRequests() throws SQLException {
+        PriorityQueue<StockRequest> result = new PriorityQueue<>();
+        result.addAll(GTCDAO.I().getBuyRequests(symbol));
+        return result;
     }
 
-    public ArrayList<StockRequest> getSell_requests() {
-        return new ArrayList<>(sell_requests);
+    public PriorityQueue<StockRequest> getSellRequests() throws SQLException {
+        PriorityQueue<StockRequest> result = new PriorityQueue<>();
+        result.addAll(GTCDAO.I().getSellRequests(symbol));
+        return result;
     }
 
-    public ArrayList<HashMap<String,String>> getSellReport() {
+    public ArrayList<HashMap<String,String>> getSellReport() throws SQLException {
         ArrayList<HashMap<String,String>> result = new ArrayList<HashMap<String,String>>();
-        for(StockRequest request : sell_requests)
+        for(StockRequest request : getSellRequests())
             result.add(request.getReport());
         return result;
     }
 
-    public ArrayList<HashMap<String,String>> getBuyReport() {
+    public ArrayList<HashMap<String,String>> getBuyReport() throws SQLException {
         ArrayList<HashMap<String,String>> result = new ArrayList<HashMap<String,String>>();
-        for(StockRequest request : buy_requests)
+        for(StockRequest request : getBuyRequests())
             result.add(request.getReport());
         return result;
     }

@@ -1,70 +1,65 @@
 package ir.Epy.MyStock.models;
 
-import ir.Epy.MyStock.Constants;
+import ir.Epy.MyStock.DAOs.GTCDAO;
+import ir.Epy.MyStock.DAOs.StockDAO;
 import ir.Epy.MyStock.Database;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
-import ir.Epy.MyStock.exceptions.HTTPException;
+import ir.Epy.MyStock.exceptions.StockNotFoundException;
 
 import java.io.PrintWriter;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
 /**
- * Created by py4_ on 2/17/16.
+ * Created customer_id py4_ on 2/17/16.
  */
 
-public abstract class StockRequest implements Comparable<StockRequest>{
-    public String by;
+public abstract class StockRequest implements Comparable<StockRequest> {
+    public Integer id;
+    public String customer_id;
     public String type; //@// TODO: 2/18/16 change it to enum
-    public Stock stock;
+    public String stock_symbol;
     public int base_price;
     public int quantity;
     public boolean is_buy;
 
+
+
     public StockRequest() {
     }
 
-    public StockRequest(String by, Stock stock, int base_price, int quantity, String type, Boolean is_buy) {
-        this.by = by;
-        this.stock = stock;
+    public StockRequest(Integer id, String customer_id, String stock_symbol, int base_price, int quantity, String type, Boolean is_buy) {
+        this.id = id;
+        this.customer_id = customer_id;
+        this.stock_symbol = stock_symbol;
         this.base_price = base_price;
         this.quantity = quantity;
         this.type = type;
         this.is_buy = is_buy;
     }
 
-    public static StockRequest create_request(String by, Stock stock, int base_price, int quantity, String type, Boolean is_buy) {
-        /*try {
-            System.out.println("looking for:  "+"ir.Epy.MyStock.models."+type+"Request");
-            Class<?> klass = Class.forName("ir.Epy.MyStock.models."+type+"Request");
-            Constructor<?> cons = klass.getConstructor(String.class,Stock.class,int.class,int.class,String.class,Boolean.class);
-            return (StockRequest) cons.newInstance(by, stock, base_price, quantity, type, is_buy);
-        } catch (ClassNotFoundException e) {
-            throw new HTTPException(200, Constants.InvalidTypeMessage);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return null;*/
+    public Stock get_stock() throws StockNotFoundException, SQLException {
+        return StockDAO.I().find(stock_symbol);
+    }
+
+    public static StockRequest create_request(String customer_id, String stock_symbol, int base_price, int quantity, String type, Boolean is_buy) throws SQLException {
         if(type.equals("GTC"))
-            return new GTCRequest(by, stock, base_price, quantity, type, is_buy);
+            return GTCDAO.I().create(customer_id, stock_symbol, base_price, quantity, type, is_buy);
         else if(type.equals("IOC"))
-            return new IOCRequest(by, stock, base_price, quantity, type, is_buy);
+            return new IOCRequest(customer_id, stock_symbol, base_price, quantity, type, is_buy);
         else if(type.equals("MPO"))
-            return new MPORequest(by, stock, base_price, quantity, type, is_buy);
+            return new MPORequest(customer_id, stock_symbol, base_price, quantity, type, is_buy);
         return null;
     }
-    protected PriorityQueue<StockRequest> get_opposite_queue() {
+
+    protected PriorityQueue<StockRequest> get_opposite_queue() throws SQLException {
+        PriorityQueue<StockRequest> result = new PriorityQueue<>();
         if(is_buy)
-            return stock.sell_requests;
-        return stock.buy_requests;
+            result.addAll(GTCDAO.I().getSellRequests(stock_symbol));
+        else
+            result.addAll(GTCDAO.I().getBuyRequests(stock_symbol));
+        return result;
     }
 
     protected Boolean price_satisfiable(StockRequest req) {
@@ -81,11 +76,11 @@ public abstract class StockRequest implements Comparable<StockRequest>{
     }
 
 
-    public abstract void process(PrintWriter out) throws CustomerNotFoundException;
+    public abstract void process(PrintWriter out) throws CustomerNotFoundException, SQLException, StockNotFoundException;
 
     protected void log_transaction(Customer buyer, Customer seller, int quantity) {
         Database.get_obj().log_stock_transaction(new StockTransactionLog(
-                buyer.id, seller.id, stock.get_symbol(), type , quantity, buyer.getDeposit(), seller.getDeposit()
+                buyer.id, seller.id, stock_symbol, type , quantity, buyer.getDeposit(), seller.getDeposit()
         ));
     }
 
@@ -101,8 +96,8 @@ public abstract class StockRequest implements Comparable<StockRequest>{
         return type;
     }
 
-    public String getBy() {
-        return by;
+    public String getCustomer_id() {
+        return customer_id;
     }
 
     public HashMap<String,String> getReport() {

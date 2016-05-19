@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class StockMapper  {
     public static Stock mapRow(ResultSet rs) {
         try {
-            return new Stock(rs.getString("symbol"));
+            return new Stock(rs.getString("SYMBOL"));
         } catch (SQLException e) {
             e.printStackTrace();
         }

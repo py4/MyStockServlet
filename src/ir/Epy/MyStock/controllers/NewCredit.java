@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created by esihaj on 4/8/16.
+ * Created customer_id esihaj on 4/8/16.
  */
 @WebServlet("/credit/new")
 public class NewCredit extends HttpServlet {

@@ -1,7 +1,7 @@
 package ir.Epy.MyStock;
 
 /**
- * Created by py4_ on 2/17/16.
+ * Created customer_id py4_ on 2/17/16.
  */
 public class Constants {
     public static final String CustomerAddedMessage = "New user is added";
@@ -21,6 +21,8 @@ public class Constants {
     public static final String CreditRequestNotFoundMessage = "Unknown credit request";
     public static final String CreditRequestProcessedMessage = "Credit request processed";
     public static final String CSVLogFailedMessage = "Failed to log to csv file";
+    public static final Integer IOC_ID = -1;
+    public static final Integer MPO_ID = -2;
     /*****************************************************************************/
     public static final int DB_EXIT_CODE = 1;
 }

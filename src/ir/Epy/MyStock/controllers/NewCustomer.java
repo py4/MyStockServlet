@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created by root on 4/4/16.
+ * Created customer_id root on 4/4/16.
  */
 @WebServlet("/customers/new")
 public class NewCustomer extends HttpServlet {

@@ -3,7 +3,7 @@ package ir.Epy.MyStock.models;
 import org.omg.CORBA.TRANSACTION_MODE;
 
 /**
- * Created by esihaj on 4/7/16.
+ * Created customer_id esihaj on 4/7/16.
  */
 public class CreditRequest {
     public enum TransactionStatus {

@@ -1,44 +1,42 @@
 package ir.Epy.MyStock.DAOs;
 
-import ir.Epy.MyStock.DBConnection;
 import ir.Epy.MyStock.Mappers.StockShareMapper;
 import ir.Epy.MyStock.exceptions.CustomerAlreadyExistsException;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import ir.Epy.MyStock.models.StockShare;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class StockShareDAO extends DAO{
+public class StockShareDAO extends DAO {
 
+    private static StockShareDAO ourInstance = new StockShareDAO();
 
-//    static {
-//        TABLE_NAME = "stock_shares";
-//    }
-
-
-    public static void deleteStockShares() throws SQLException {
-        Statement st = DBConnection.createStatement();
-        st.executeQuery("DELETE FROM customer_stock_shares");
+    private StockShareDAO() {
+        TABLE_NAME = "stock_shares";
+        db_fields = new ArrayList<String> (Arrays.asList("CUSTOMER_ID", "STOCK_SYMBOL", "QUANTITY"));
+        db_pks = new ArrayList<String>(Arrays.asList("CUSTOMER_ID", "STOCK_SYMBOL"));
     }
-    public static StockShare findStockShare(String customer_id, String stock_symbol) throws SQLException {
-        ResultSet rs = null;
-        PreparedStatement ps = DBConnection.prepareStatement("SELECT * FROM ? c WHERE c.c_id = ? AND c.symbol = ?");
-//        ps.setString(1, TABLE_NAME);
-        ps.setString(2, customer_id);
-        ps.setString(3, stock_symbol);
-        rs = ps.executeQuery();
+
+
+    public static StockShareDAO I() {
+        return ourInstance;
+    }
+
+    public StockShare find(String customer_id, String stock_symbol) throws SQLException {
+
+        ResultSet rs = super.find(customer_id, stock_symbol);
         if (rs.next())
             return StockShareMapper.mapRow(rs);
-        return null;
+        else return null;
     }
 
-    public static void addStockShare(String customer_id, String stock_symbol, Integer quantity) throws SQLException{
-        ResultSet rs = null;
-        PreparedStatement ps = DBConnection.prepareStatement("INSERT INTO ? (c_id, name, family, deposit) VALUES (?,?,?,?)");
-//        ps.setString(1, TABLE_NAME);
-        ps.setString(2, customer_id);
-        ps.setString(3, stock_symbol);
-        ps.setInt(4, quantity);
-        ps.execute();
+    public void create(String customer_id, String stock_symbol, Integer quantity) throws SQLException {
+            super.create(customer_id, stock_symbol, quantity);
     }
+
+
 }

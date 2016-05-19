@@ -9,11 +9,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.hsqldb.Tokens.WHERE;
 
 /**
- * Created by py4_ on 5/19/16.
+ * Created customer_id py4_ on 5/19/16.
  */
 
 
@@ -52,9 +53,32 @@ public class DAO {
         return result;
     }
 
+    private List<Object> get_field_values_as_list(Object obj, ArrayList<String> fields) {
+        List<Object> result = new ArrayList<>();
+        try {
+            for (int i = 0; i < fields.size(); i++) {
+                Field f = null;
+                f = obj.getClass().getDeclaredField(fields.get(i).toLowerCase());
+                f.setAccessible(true);
+                result.add(f.get(obj));
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public void deleteAll() throws SQLException {
         Statement st = DBConnection.createStatement();
         st.executeQuery("DELETE FROM "+TABLE_NAME);
+    }
+
+    public void delete(Object... args) throws SQLException {
+        String query = "DELETE FROM " + TABLE_NAME + " r WHERE";
+        for(int i = 0; i < db_pks.size(); i++)
+            query += "s."+db_pks.get(i) + "="+args[i] + (i < db_pks.size() - 1 ? " AND " : "");
+        System.out.println("[DEBUG] query: "+query);
+        DBConnection.createStatement().execute(query);
     }
 
     public ResultSet find(Object... args) throws SQLException {
@@ -73,13 +97,18 @@ public class DAO {
         DBConnection.createStatement().executeQuery(query);
     }
 
-    public void update(Object obj) throws SQLException {
+    public int update(Object obj) throws SQLException {
         String query = "UPDATE "+TABLE_NAME+" SET ";
         query += get_field_values(obj, db_fields);
         query += " WHERE ";
         query += get_field_values(obj, db_pks);
         System.out.println("[DEBUG] query:  "+query);
-        DBConnection.createStatement().executeQuery(query);
+        return DBConnection.createStatement().executeUpdate(query);
+    }
+
+    public void updateOrCreate(Object obj) throws SQLException {
+        if(update(obj) == 0)
+            create(get_field_values_as_list(obj, db_fields).toArray());
     }
 
 }

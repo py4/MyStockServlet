@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * Created by py4_ on 2/16/16.
+ * Created customer_id py4_ on 2/16/16.
  */
 public class Database {
 
@@ -48,12 +48,12 @@ public class Database {
         customers.put(id, new Customer(id, name, family, deposit));
     }
 
-    public Customer get_customer(String id) throws CustomerNotFoundException {
+    /*public Customer get_customer(String id) throws CustomerNotFoundException {
         Customer customer = customers.get(id);
         if(customer == null)
             throw new CustomerNotFoundException();
         return customer;
-    }
+    }*/
 
     public ArrayList<Customer> get_customers() {
         ArrayList<Customer> result = new ArrayList<Customer>();
@@ -69,7 +69,7 @@ public class Database {
         return result;
     }
 
-    //@// TODO: 2/17/16 How to check if a stock exists? admin should have sold it or it is done by a request to the server in the previous project?
+    //@// TODO: 2/17/16 How to check if a stock exists? admin should have sold it or it is done customer_id a request to the server in the previous project?
     public Stock get_stock(String symbol) throws StockNotFoundException {
         Stock stock = stocks.get(symbol);
         if(stock == null)

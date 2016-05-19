@@ -42,12 +42,5 @@ public class CustomerDAO extends DAO {
         }
     }
 
-//    public static void update(Customer c) throws SQLException {
-//        PreparedStatement ps = DBConnection.prepareStatement("UPDATE ? SET ?=?, ?=?, ?=?, ?=?");
-//        ps.setString(1, TABLE_NAME);
-//        ps.setString(2, "id");
-//        ps.setString(3, "");
-//
-//    }
 
 }

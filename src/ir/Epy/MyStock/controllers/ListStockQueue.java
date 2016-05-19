@@ -2,11 +2,7 @@ package ir.Epy.MyStock.controllers;
 
 import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.Database;
-import ir.Epy.MyStock.exceptions.CreditRequestNotFoundException;
-import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import ir.Epy.MyStock.exceptions.StockNotFoundException;
-import ir.Epy.MyStock.models.Bank;
-import ir.Epy.MyStock.models.CreditRequest;
 import ir.Epy.MyStock.models.Stock;
 
 import javax.servlet.ServletException;
@@ -18,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created by esihaj on 4/8/16.
+ * Created customer_id esihaj on 4/8/16.
  */
 @WebServlet("/stock/queues")
 public class ListStockQueue extends HttpServlet {
@@ -34,8 +30,8 @@ public class ListStockQueue extends HttpServlet {
             try {
                 Stock s = Database.get_obj().get_stock(symbol);
                 request.setAttribute("symbol", symbol);
-                request.setAttribute("sell_queue", s.getSell_requests());
-                request.setAttribute("buy_queue", s.getBuy_requests());
+                request.setAttribute("sell_queue", s.getSellRequests());
+                request.setAttribute("buy_queue", s.getBuyRequests());
                 request.getRequestDispatcher("/stock/show_queues.jsp").forward(request, response);
                 return;
             } catch (StockNotFoundException e) {

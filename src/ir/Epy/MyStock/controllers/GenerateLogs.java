@@ -18,7 +18,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 
 /**
- * Created by esihaj on 4/8/16.
+ * Created customer_id esihaj on 4/8/16.
  */
 @WebServlet("/admin/log")
 public class GenerateLogs extends HttpServlet {

@@ -1,39 +1,51 @@
 package ir.Epy.MyStock.DAOs;
 
-import ir.Epy.MyStock.DBConnection;
+import ir.Epy.MyStock.Mappers.CustomerMapper;
 import ir.Epy.MyStock.Mappers.StockMapper;
+import ir.Epy.MyStock.exceptions.CustomerAlreadyExistsException;
+import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import ir.Epy.MyStock.exceptions.StockAlreadyExistsException;
 import ir.Epy.MyStock.exceptions.StockNotFoundException;
+import ir.Epy.MyStock.models.Customer;
 import ir.Epy.MyStock.models.Stock;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class StockDAO {
+public class StockDAO extends DAO {
 
-    public static void deleteStocks() throws SQLException {
-        Statement st = DBConnection.createStatement();
-        st.executeQuery("DELETE FROM stock");
+    private static StockDAO ourInstance = new StockDAO();
+
+    private StockDAO() {
+        TABLE_NAME = "stocks";
+        db_fields = new ArrayList<String> (Arrays.asList("SYMBOL"));
+        db_pks = new ArrayList<String>(Arrays.asList("SYMBOL"));
     }
 
-    public static Stock findStock(String symbol) throws SQLException, StockNotFoundException {
-        ResultSet rs = null;
-        PreparedStatement ps = DBConnection.prepareStatement("SELECT * FROM stocks s WHERE s.symbol = ?");
-        ps.setString(1, symbol);
-        rs = ps.executeQuery();
+
+    public static StockDAO I() {
+        return ourInstance;
+    }
+
+    public Stock find(String symbol) throws StockNotFoundException, SQLException {
+
+        ResultSet rs = super.find(symbol);
         if (rs.next())
             return StockMapper.mapRow(rs);
         else
             throw new StockNotFoundException();
     }
 
-    public static void addStock(String symbol) throws SQLException, StockAlreadyExistsException {
-        ResultSet rs = null;
-        PreparedStatement ps = DBConnection.prepareStatement("INSERT INTO stocks (symbol) VALUES (?)");
-        ps.setString(1, symbol);
+    public void create(String symbol) throws SQLException, StockAlreadyExistsException {
         try {
-            ps.execute();
+            super.create(symbol);
         } catch (SQLIntegrityConstraintViolationException e) {
             throw new StockAlreadyExistsException();
         }
     }
+
+
 }

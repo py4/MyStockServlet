@@ -5,16 +5,17 @@ import ir.Epy.MyStock.exceptions.CreditRequestNotFoundException;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import ir.Epy.MyStock.exceptions.InvalidCreditValueRequest;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
 /**
- * Created by esihaj on 4/7/16.
+ * Created customer_id esihaj on 4/7/16.
  */
 public class Bank {
     HashMap<String, CreditRequest> requests = new HashMap<>();
-    HashMap<String, CreditRequest> history = new HashMap<>();
+    //HashMap<String, CreditRequest> history = new HashMap<>();
     int req_id_counter = 0;
 
     public Collection<CreditRequest> getRequests() {
@@ -29,7 +30,7 @@ public class Bank {
         requests.put(req_id, new CreditRequest(req_id, customer_id, credit, is_deposit));
     }
 
-    public void process_request(String req_id, CreditRequest.TransactionStatus status) throws CustomerNotFoundException, CreditRequestNotFoundException {
+    public void process_request(String req_id, CreditRequest.TransactionStatus status) throws CustomerNotFoundException, CreditRequestNotFoundException, SQLException {
         CreditRequest rq = requests.get(req_id);
         if(rq == null)
             throw new CreditRequestNotFoundException();
@@ -46,7 +47,7 @@ public class Bank {
 
         //move to history
         requests.remove(req_id);
-        history.put(req_id, rq);
+        //history.put(req_id, rq);
 
     }
 

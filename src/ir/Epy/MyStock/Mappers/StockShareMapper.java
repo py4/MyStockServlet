@@ -16,7 +16,7 @@ public class StockShareMapper {
 
     public static StockShare mapRow(ResultSet rs){
         try {
-            return new StockShare(rs.getString("c_id"), rs.getString("symbol"), rs.getInt("quantity"));
+            return new StockShare(rs.getString("CUSTOMER_ID"), rs.getString("STOCK_SYMBOL"), rs.getInt("QUANTITY"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
