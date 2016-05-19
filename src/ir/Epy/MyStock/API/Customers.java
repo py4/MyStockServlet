@@ -32,7 +32,7 @@ public class Customers  extends HttpServlet {
         String payload = request.getParameterNames().nextElement();
         try {
             JSONObject json = (JSONObject)new JSONParser().parse(payload);
-            Database.get_obj().add_customer((String)json.get("id"),(String)json.get("name"),(String)json.get("family"));
+            Database.get_obj().add_customer((String)json.get("id"),(String)json.get("name"),(String)json.get("family"), 1000);
             response.setContentType("application/json");
             response.setHeader("Access-Control-Allow-Origin", "*");
             JSONObject obj = new JSONObject();

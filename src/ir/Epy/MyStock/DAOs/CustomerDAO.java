@@ -10,9 +10,13 @@ import java.sql.*;
 
 public class CustomerDAO {
 
+    public static void deleteCustomers() throws SQLException {
+        Statement st = DBConnection.createStatement();
+        st.executeQuery("DELETE FROM customer");
+    }
     public static Customer findCustomer(String id) throws CustomerNotFoundException, SQLException {
         ResultSet rs = null;
-        PreparedStatement ps = DBConnection.prepareStatement("SELECT * FROM customer c WHERE c.c_id = ?");
+        PreparedStatement ps = DBConnection.prepareStatement("SELECT * FROM customers c WHERE c.c_id = ?");
         ps.setString(1, id);
         rs = ps.executeQuery();
         if (rs.next())
@@ -23,7 +27,7 @@ public class CustomerDAO {
 
     public static void addCustomer(String id, String name, String family, Integer deposit) throws SQLException, CustomerAlreadyExistsException {
         ResultSet rs = null;
-        PreparedStatement ps = DBConnection.prepareStatement("INSERT INTO customer (c_id, name, family, deposit) VALUES (?,?,?,?)");
+        PreparedStatement ps = DBConnection.prepareStatement("INSERT INTO customers (c_id, name, family, deposit) VALUES (?,?,?,?)");
         ps.setString(1, id);
         ps.setString(2, name);
         ps.setString(3, family);

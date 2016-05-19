@@ -9,16 +9,16 @@ import java.util.HashMap;
  */
 public class Customer {
     public String id;
-    private String name;
-    private String family;
-    private int deposit;
+    public String name;
+    public String family;
+    public int deposit;
     private HashMap<String, Integer> shares = new HashMap<>();
 
     public Customer(String id, String name, String family, Integer deposit) {
         this.id = id;
         this.name = name;
         this.family = family;
-        this.deposit = 10000;
+        this.deposit = deposit;
     }
 
     public Boolean is_admin() {

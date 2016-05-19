@@ -39,7 +39,13 @@ public class Database {
     public void add_customer(String id, String name, String family) throws CustomerAlreadyExistsException {
         if(customers.get(id) != null)
             throw new CustomerAlreadyExistsException();
-        customers.put(id, new Customer(id, name, family));
+        customers.put(id, new Customer(id, name, family, 1000));
+    }
+
+    public void add_customer(String id, String name, String family, Integer deposit) throws CustomerAlreadyExistsException {
+        if(customers.get(id) != null)
+            throw new CustomerAlreadyExistsException();
+        customers.put(id, new Customer(id, name, family, deposit));
     }
 
     public Customer get_customer(String id) throws CustomerNotFoundException {
