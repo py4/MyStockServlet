@@ -7,35 +7,47 @@ import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import ir.Epy.MyStock.models.Customer;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class CustomerDAO {
+public class CustomerDAO extends DAO {
 
-    public static void deleteCustomers() throws SQLException {
-        Statement st = DBConnection.createStatement();
-        st.executeQuery("DELETE FROM customer");
+    private static CustomerDAO ourInstance = new CustomerDAO();
+
+    private CustomerDAO() {
+        TABLE_NAME = "customers";
+        db_fields = new ArrayList<String> (Arrays.asList("ID", "NAME", "FAMILY", "DEPOSIT"));
+        db_pks = new ArrayList<String>(Arrays.asList("ID"));
     }
-    public static Customer findCustomer(String id) throws CustomerNotFoundException, SQLException {
-        ResultSet rs = null;
-        PreparedStatement ps = DBConnection.prepareStatement("SELECT * FROM customers c WHERE c.c_id = ?");
-        ps.setString(1, id);
-        rs = ps.executeQuery();
+
+
+    public static CustomerDAO I() {
+        return ourInstance;
+    }
+
+    public Customer find(String id) throws CustomerNotFoundException, SQLException {
+
+        ResultSet rs = super.find(id);
         if (rs.next())
             return CustomerMapper.mapRow(rs);
         else
             throw new CustomerNotFoundException();
     }
 
-    public static void addCustomer(String id, String name, String family, Integer deposit) throws SQLException, CustomerAlreadyExistsException {
-        ResultSet rs = null;
-        PreparedStatement ps = DBConnection.prepareStatement("INSERT INTO customers (c_id, name, family, deposit) VALUES (?,?,?,?)");
-        ps.setString(1, id);
-        ps.setString(2, name);
-        ps.setString(3, family);
-        ps.setInt(4, deposit);
+    public void create(String id, String name, String family, Integer deposit) throws SQLException, CustomerAlreadyExistsException {
         try {
-            ps.execute();
+            super.create(id, name, family, deposit);
         } catch (SQLIntegrityConstraintViolationException e) {
             throw new CustomerAlreadyExistsException();
         }
     }
+
+//    public static void update(Customer c) throws SQLException {
+//        PreparedStatement ps = DBConnection.prepareStatement("UPDATE ? SET ?=?, ?=?, ?=?, ?=?");
+//        ps.setString(1, TABLE_NAME);
+//        ps.setString(2, "id");
+//        ps.setString(3, "");
+//
+//    }
+
 }

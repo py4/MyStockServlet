@@ -12,8 +12,7 @@ public class Customer {
     public String name;
     public String family;
     public int deposit;
-    private HashMap<String, Integer> shares = new HashMap<>();
-
+    HashMap<String, Integer> shares = new HashMap<>();
     public Customer(String id, String name, String family, Integer deposit) {
         this.id = id;
         this.name = name;
@@ -28,11 +27,6 @@ public class Customer {
     public Boolean has_enough_deposit(int deposit) {
         return this.deposit >= deposit;
     }
-
-    public void set_deposit(int deposit) {
-        this.deposit = deposit;
-    }
-
     public void increase_deposit(int diff) {
         this.deposit += diff;
     }
