@@ -2,7 +2,6 @@ package ir.Epy.MyStock.controllers;
 
 import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.Database;
-import ir.Epy.MyStock.exceptions.CustomerExistsException;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import ir.Epy.MyStock.exceptions.InvalidCreditValueRequest;
 import ir.Epy.MyStock.models.Bank;

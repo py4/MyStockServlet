@@ -14,7 +14,7 @@ public class Customer {
     private int deposit;
     private HashMap<String, Integer> shares = new HashMap<>();
 
-    public Customer(String id, String name, String family) {
+    public Customer(String id, String name, String family, Integer deposit) {
         this.id = id;
         this.name = name;
         this.family = family;

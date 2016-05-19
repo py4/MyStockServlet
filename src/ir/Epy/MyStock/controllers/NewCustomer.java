@@ -2,7 +2,7 @@ package ir.Epy.MyStock.controllers;
 
 import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.Database;
-import ir.Epy.MyStock.exceptions.CustomerExistsException;
+import ir.Epy.MyStock.exceptions.CustomerAlreadyExistsException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,7 +36,7 @@ public class NewCustomer extends HttpServlet {
                 request.setAttribute("success_message", Constants.CustomerAddedMessage);
                 request.getRequestDispatcher("/customers/index.jsp").forward(request, response);
                 return;
-            } catch (CustomerExistsException e) {
+            } catch (CustomerAlreadyExistsException e) {
                 errors.add(Constants.CustomerExistsMessage);
             }
         }

@@ -1,9 +1,8 @@
 package ir.Epy.MyStock.API;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import ir.Epy.MyStock.Database;
-import ir.Epy.MyStock.exceptions.CustomerExistsException;
+import ir.Epy.MyStock.exceptions.CustomerAlreadyExistsException;
 import ir.Epy.MyStock.models.Customer;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -14,10 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by py4_ on 5/6/16.
@@ -44,7 +40,7 @@ public class Customers  extends HttpServlet {
             response.getWriter().print(obj);
         } catch (ParseException e) {
             e.printStackTrace();
-        } catch (CustomerExistsException e) {
+        } catch (CustomerAlreadyExistsException e) {
             e.printStackTrace();
         }
 

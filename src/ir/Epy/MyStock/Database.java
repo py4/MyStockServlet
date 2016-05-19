@@ -3,12 +3,10 @@ import com.opencsv.CSVWriter;
 import ir.Epy.MyStock.exceptions.*;
 import ir.Epy.MyStock.models.*;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -28,7 +26,7 @@ public class Database {
     private Database() {
         try {
             add_customer("1", "admin", "admin zadegan");
-        } catch (CustomerExistsException e) {
+        } catch (CustomerAlreadyExistsException e) {
             e.printStackTrace();
         }
     }
@@ -38,9 +36,9 @@ public class Database {
     }
 
 
-    public void add_customer(String id, String name, String family) throws CustomerExistsException {
+    public void add_customer(String id, String name, String family) throws CustomerAlreadyExistsException {
         if(customers.get(id) != null)
-            throw new CustomerExistsException();
+            throw new CustomerAlreadyExistsException();
         customers.put(id, new Customer(id, name, family));
     }
 
