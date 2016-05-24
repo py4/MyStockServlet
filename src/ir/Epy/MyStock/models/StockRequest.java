@@ -16,7 +16,7 @@ import java.util.PriorityQueue;
  */
 
 public abstract class StockRequest implements Comparable<StockRequest> {
-    public Integer id;
+    public int id;
     public String customer_id;
     public String type; //@// TODO: 2/18/16 change it to enum
     public String stock_symbol;
@@ -84,6 +84,7 @@ public abstract class StockRequest implements Comparable<StockRequest> {
         ));
     }
 
+    public int getId() {return  id;}
     public int getQuantity() {
         return quantity;
     }

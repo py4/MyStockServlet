@@ -1,8 +1,11 @@
 package ir.Epy.MyStock.API;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.DAOs.CustomerDAO;
+import ir.Epy.MyStock.DAOs.GTCDAO;
+import ir.Epy.MyStock.DAOs.StockDAO;
 import ir.Epy.MyStock.Database;
 import ir.Epy.MyStock.exceptions.*;
 import ir.Epy.MyStock.models.Customer;
@@ -32,7 +35,7 @@ import java.util.HashMap;
 public class Requests extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String payload = request.getParameterNames().nextElement();
-
+        System.out.println("New Buy/Sell Request");
         try {
             JSONObject json = (JSONObject)new JSONParser().parse(payload);
             ArrayList<String> errors = new ArrayList<String>();
@@ -81,6 +84,7 @@ public class Requests extends HttpServlet {
             else
                 obj.put("msg", org.toString());
             //obj.put("status", "200");
+
             response.getWriter().print(obj);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -91,13 +95,16 @@ public class Requests extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         response.setHeader("Access-Control-Allow-Origin", "*");
-        JSONObject obj = new JSONObject();
+        //JSONObject obj = new JSONObject();
         try {
-            obj.put("requests", Database.get_obj().getReport());
+            Gson gson = new Gson();
+            //obj.put("requests", gson.toJson(GTCDAO.I().getAll()));
+            //System.out.println("{'requests':"+gson.toJson(GTCDAO.I().getAll())+"}");
+            response.getWriter().print("{\"requests\":"+gson.toJson(GTCDAO.I().getAll())+"}");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        response.getWriter().print(obj);
+
 
 
 

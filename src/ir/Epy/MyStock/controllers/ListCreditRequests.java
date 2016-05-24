@@ -26,7 +26,7 @@ public class ListCreditRequests extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            request.setAttribute("req_list", CreditRequestDAO.I().getAll());
+            request.setAttribute("req_list", CreditRequestDAO.I().getPendingRequests());
         } catch (SQLException e) {
             e.printStackTrace();
         }

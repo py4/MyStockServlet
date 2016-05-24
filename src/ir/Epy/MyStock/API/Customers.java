@@ -1,6 +1,7 @@
 package ir.Epy.MyStock.API;
 
 import com.google.gson.Gson;
+import ir.Epy.MyStock.DAOs.CustomerDAO;
 import ir.Epy.MyStock.Database;
 import ir.Epy.MyStock.exceptions.CustomerAlreadyExistsException;
 import ir.Epy.MyStock.models.Customer;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -23,16 +25,28 @@ public class Customers  extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
         response.setHeader("Access-Control-Allow-Origin", "*");
-        ArrayList<Customer> customers = Database.get_obj().get_customers();
-        Gson gson = new Gson();
-        response.getWriter().write(gson.toJson(customers));
+        try {
+            ArrayList<Customer> customers = CustomerDAO.I().getAll();
+            Gson gson = new Gson();
+//            JSONObject jobj = new JSONObject();
+//            String j = "{'users':" +gson.toJson(customers) + ", 'errors':[]}";
+//            jobj.put("users",gson.toJson(customers));
+//            jobj.put("errors", "[]");
+//            System.out.println("json: ");
+//            System.out.println(j);
+//            System.out.println(gson.toJson(customers));
+            response.getWriter().write(gson.toJson(customers));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String payload = request.getParameterNames().nextElement();
         try {
             JSONObject json = (JSONObject)new JSONParser().parse(payload);
-            Database.get_obj().add_customer((String)json.get("id"),(String)json.get("name"),(String)json.get("family"), 1000);
+            CustomerDAO.I().create((String)json.get("id"),(String)json.get("name"),(String)json.get("family"), 1000);
+            //Database.get_obj().add_customer();
             response.setContentType("application/json");
             response.setHeader("Access-Control-Allow-Origin", "*");
             JSONObject obj = new JSONObject();
@@ -41,6 +55,8 @@ public class Customers  extends HttpServlet {
         } catch (ParseException e) {
             e.printStackTrace();
         } catch (CustomerAlreadyExistsException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 

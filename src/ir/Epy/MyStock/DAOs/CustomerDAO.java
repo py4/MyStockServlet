@@ -42,5 +42,12 @@ public class CustomerDAO extends DAO {
         }
     }
 
+    public ArrayList<Customer> getAll() throws SQLException {
+        ResultSet rs = super.all();
+        ArrayList<Customer> cs = new ArrayList<>();
+        while(rs.next())
+            cs.add(CustomerMapper.mapRow(rs));
+        return cs;
+    }
 
 }

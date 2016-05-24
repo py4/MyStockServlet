@@ -1,3 +1,4 @@
+-- noinspection SqlNoDataSourceInspectionForFile
 DROP TABLE  transactions IF EXISTS;
 DROP TABLE credit_requests IF EXISTS ;
 DROP TABLE stock_requests IF EXISTS ;
@@ -17,21 +18,22 @@ CREATE TABLE stocks(
   PRIMARY KEY (symbol)
 );
 
-CREATE TABLE customer_stock_shares (
+CREATE TABLE stock_shares (
   stock_symbol VARCHAR(100),
-  customer_id INTEGER NOT NULL ,
+  customer_id VARCHAR(100) NOT NULL ,
   quantity INTEGER,
   FOREIGN KEY (stock_symbol) REFERENCES stocks,
   FOREIGN KEY (customer_id) REFERENCES customers,
-  PRIMARY KEY (customer_id,symbol)
+  PRIMARY KEY (customer_id,stock_symbol)
 );
 
-CREATE TABLE stock_request(
+CREATE TABLE stock_requests(
   id INTEGER NOT NULL,
   quantity INTEGER,
   is_buy BOOLEAN,
+  type VARCHAR(10),
   base_price INTEGER,
-  customer_id INTEGER,
+  customer_id VARCHAR(100) NOT NULL,
   stock_symbol VARCHAR(100),
   PRIMARY KEY (id),
   FOREIGN KEY (customer_id) REFERENCES customers,
@@ -40,11 +42,11 @@ CREATE TABLE stock_request(
 
 
 
-CREATE TABLE credit_request(
+CREATE TABLE credit_requests(
   id INTEGER NOT NULL ,
   status SMALLINT,
   amount INTEGER,
-  customer_id INTEGER ,
+  customer_id VARCHAR(100) NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (customer_id) REFERENCES customers
 );

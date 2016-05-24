@@ -21,10 +21,10 @@ import java.util.Arrays;
 public class CreditRequestDAO extends DAO {
 
     private static CreditRequestDAO ourInstance = new CreditRequestDAO();
-    private static int maxId = 0;
+    private int maxId = 0;
 
     private CreditRequestDAO() {
-        TABLE_NAME = "credict_requests";
+        TABLE_NAME = "credit_requests";
         db_fields = new ArrayList<String> (Arrays.asList("ID", "STATUS", "CUSTOMER_ID", "AMOUNT"));
         db_pks = new ArrayList<String>(Arrays.asList("ID"));
 
@@ -61,10 +61,20 @@ public class CreditRequestDAO extends DAO {
         return result;
     }
 
+    public ArrayList<CreditRequest> getPendingRequests() throws SQLException {
+        ArrayList<CreditRequest> result = new ArrayList<>();
+        ResultSet rs = super.all("WHERE STATUS='"+Constants.PendingStatus+"'");
+        while(rs.next()) {
+            result.add(CreditRequestMapper.mapRow(rs));
+        }
+
+        return result;
+    }
+
     public void create(String customer_id, int amount, int status) throws SQLException, InvalidCreditValueRequest {
         if(amount < 0)
             throw new InvalidCreditValueRequest();
-        super.create(maxId+1, customer_id, amount, status);
+        super.create(maxId+1, status, customer_id, amount);
         maxId++;
     }
 

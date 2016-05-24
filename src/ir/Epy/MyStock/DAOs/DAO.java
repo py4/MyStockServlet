@@ -38,14 +38,15 @@ public class DAO {
         return result + ")";
     }
 
-    private String get_field_values(Object obj, ArrayList<String> fields)  {
+    private String get_field_values(Object obj, ArrayList<String> fields, String delim)  {
         String result = "";
+        delim = " " + delim + " ";
         try {
             for (int i = 0; i < fields.size(); i++) {
                 Field f = null;
-                f = obj.getClass().getDeclaredField(fields.get(i).toLowerCase());
+                f = obj.getClass().getField(fields.get(i).toLowerCase());
                 f.setAccessible(true);
-                result += ("\"" + fields.get(i) + "\"" + "=" + "'" + f.get(obj).toString() + "'") + ((i < (fields.size() - 1)) ? "," : "");
+                result += ("\"" + fields.get(i) + "\"" + "=" + "'" + f.get(obj).toString() + "'") + ((i < (fields.size() - 1)) ? delim : "");
             }
         } catch(Exception e) {
             e.printStackTrace();
@@ -58,7 +59,7 @@ public class DAO {
         try {
             for (int i = 0; i < fields.size(); i++) {
                 Field f = null;
-                f = obj.getClass().getDeclaredField(fields.get(i).toLowerCase());
+                f = obj.getClass().getField(fields.get(i).toLowerCase());
                 f.setAccessible(true);
                 result.add(f.get(obj));
             }
@@ -74,7 +75,7 @@ public class DAO {
     }
 
     public void delete(Object... args) throws SQLException {
-        String query = "DELETE FROM " + TABLE_NAME + " r WHERE";
+        String query = "DELETE FROM " + TABLE_NAME + " s WHERE ";
         for(int i = 0; i < db_pks.size(); i++)
             query += "s."+db_pks.get(i) + "="+args[i] + (i < db_pks.size() - 1 ? " AND " : "");
         System.out.println("[DEBUG] query: "+query);
@@ -85,7 +86,7 @@ public class DAO {
         ResultSet result = null;
         String query = "SELECT * FROM "+TABLE_NAME+" s WHERE ";
         for(int i = 0; i < db_pks.size(); i++)
-            query += "s."+db_pks.get(i) + "="+args[i] + (i < db_pks.size() - 1 ? " AND " : "");
+            query += "s."+db_pks.get(i) + "='"+args[i] +"'"+ (i < db_pks.size() - 1 ? " AND " : "");
         System.out.println("[DEBUG] query: "+query);
         return DBConnection.createStatement().executeQuery(query);
     }
@@ -93,6 +94,11 @@ public class DAO {
     public ResultSet all() throws SQLException {
         ResultSet result = null;
         return DBConnection.createStatement().executeQuery("SELECT * FROM "+TABLE_NAME);
+    }
+
+    public ResultSet all(String query) throws SQLException {
+        ResultSet result = null;
+        return DBConnection.createStatement().executeQuery("SELECT * FROM "+TABLE_NAME + " " + query);
     }
 
     public void create(Object... args) throws SQLException {
@@ -104,9 +110,9 @@ public class DAO {
 
     public int update(Object obj) throws SQLException {
         String query = "UPDATE "+TABLE_NAME+" SET ";
-        query += get_field_values(obj, db_fields);
+        query += get_field_values(obj, db_fields, ",");
         query += " WHERE ";
-        query += get_field_values(obj, db_pks);
+        query += get_field_values(obj, db_pks, "AND");
         System.out.println("[DEBUG] query:  "+query);
         return DBConnection.createStatement().executeUpdate(query);
     }

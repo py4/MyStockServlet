@@ -1,6 +1,7 @@
 package ir.Epy.MyStock.controllers;
 
 import ir.Epy.MyStock.Constants;
+import ir.Epy.MyStock.DAOs.StockDAO;
 import ir.Epy.MyStock.Database;
 import ir.Epy.MyStock.exceptions.StockNotFoundException;
 import ir.Epy.MyStock.models.Stock;
@@ -29,7 +30,7 @@ public class ListStockQueue extends HttpServlet {
 
         if(errors.size() == 0) {
             try {
-                Stock s = Database.get_obj().get_stock(symbol);
+                Stock s = StockDAO.I().find(symbol);
                 request.setAttribute("symbol", symbol);
                 request.setAttribute("sell_queue", s.getSellRequests());
                 request.setAttribute("buy_queue", s.getBuyRequests());

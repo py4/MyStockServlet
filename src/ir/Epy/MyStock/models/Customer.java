@@ -66,11 +66,15 @@ public class Customer {
     }
 
     public void increase_share(String symbol, int count) throws SQLException {
+        if(is_admin())
+            return;
         StockShare share = new StockShare(id, symbol, count+get_share_count(symbol));
         StockShareDAO.I().updateOrCreate(share);
     }
 
     public void decrease_share(String symbol, int count) throws SQLException {
+        if(is_admin())
+            return;
         increase_share(symbol, -count);
     }
 

@@ -6,13 +6,24 @@ import java.sql.*;
  * Created customer_id py4_ on 5/19/16.
  */
 public class DBConnection {
-    private static DBConnection ourInstance = new DBConnection();
+    private static DBConnection ourInstance = null;
 
     //public static DBConnection getInstance() {
      //   return ourInstance;
     //}
 
     public static final String CONN_STR = "jdbc:hsqldb:hsql://localhost";
+
+    static {
+        try {
+            System.out.println("Loading JDBC");
+            Class.forName("org.hsqldb.jdbc.JDBCDriver");
+            ourInstance = new DBConnection();
+            System.out.println("Loaded JDBC successfully");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Unable to load HSQLDB JDBC driver");
+        }
+    }
 
     private DBConnection() {
         try {

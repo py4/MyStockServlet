@@ -25,10 +25,10 @@
                 <tr>
                     <form id="request" action="/admin/credit_check" class="form-horizontal" method="post">
                         <td>
-                            <c:out value="${req.req_id}"/>
-                            <input type="hidden" name="req_id" value="${req.req_id}"/>
+                            <c:out value="${req.id}"/>
+                            <input type="hidden" name="req_id" value="${req.id}"/>
                         </td>
-                        <td><c:out value="${req.user}"/></td>
+                        <td><c:out value="${req.customerId}"/></td>
                         <td><c:out value="${req.amount}"/></td>
                         <td>
                             <div class="col-sm-offset-2 col-sm-10">

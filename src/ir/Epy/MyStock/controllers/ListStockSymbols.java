@@ -1,6 +1,7 @@
 package ir.Epy.MyStock.controllers;
 
 import ir.Epy.MyStock.Constants;
+import ir.Epy.MyStock.DAOs.StockDAO;
 import ir.Epy.MyStock.Database;
 import ir.Epy.MyStock.exceptions.StockNotFoundException;
 import ir.Epy.MyStock.models.Stock;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -24,7 +26,11 @@ public class ListStockSymbols extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("symbol_list", Database.get_obj().getStockSymbols());
+        try {
+            request.setAttribute("symbol_list", StockDAO.I().getAll());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         request.getRequestDispatcher("/stock/index.jsp").forward(request, response);
     }
 }

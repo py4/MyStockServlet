@@ -27,9 +27,9 @@
                 </tr>
                 <c:forEach var="buy" items="${buy_queue}">
                     <tr>
-                        <td><c:out value="${buy.by}"/></td>
+                        <td><c:out value="${buy.customerId}"/></td>
                         <td><c:out value="${buy.type}"/></td>
-                        <td><c:out value="${buy.base_price}"/></td>
+                        <td><c:out value="${buy.basePrice}"/></td>
                         <td><c:out value="${buy.quantity}"/></td>
                     </tr>
                 </c:forEach>
@@ -47,7 +47,7 @@
                     </tr>
                     <c:forEach var="sell" items="${sell_queue}">
                         <tr>
-                            <td><c:out value="${sell.by}"/></td>
+                            <td><c:out value="${sell.customer_id}"/></td>
                             <td><c:out value="${sell.type}"/></td>
                             <td><c:out value="${sell.base_price}"/></td>
                             <td><c:out value="${sell.quantity}"/></td>
