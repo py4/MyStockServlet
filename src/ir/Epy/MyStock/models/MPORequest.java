@@ -3,7 +3,6 @@ package ir.Epy.MyStock.models;
 import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.DAOs.CustomerDAO;
 import ir.Epy.MyStock.DAOs.GTCDAO;
-import ir.Epy.MyStock.Database;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 
 import java.io.PrintWriter;

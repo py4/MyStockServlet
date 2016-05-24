@@ -12,14 +12,18 @@ import java.util.HashMap;
  */
 public class Customer {
     public String id;
-    public String name;
-    public String family;
+    public String username, password;
+    public String name, family;
+    public String role;
     public int deposit;
 
-    public Customer(String id, String name, String family, Integer deposit) {
+    public Customer(String id, String username, String password, String role, String name, String family, Integer deposit) {
         this.id = id;
+        this.username = username;
+        this.password = password;
         this.name = name;
         this.family = family;
+        this.role = role;
         this.deposit = deposit;
     }
 

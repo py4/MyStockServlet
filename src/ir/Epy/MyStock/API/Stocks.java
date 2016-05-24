@@ -1,8 +1,6 @@
 package ir.Epy.MyStock.API;
 
 import ir.Epy.MyStock.DAOs.StockDAO;
-import ir.Epy.MyStock.DAOs.StockShareDAO;
-import ir.Epy.MyStock.Database;
 import org.json.simple.JSONObject;
 
 import javax.servlet.ServletException;

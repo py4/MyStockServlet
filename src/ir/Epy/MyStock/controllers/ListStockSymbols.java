@@ -1,10 +1,6 @@
 package ir.Epy.MyStock.controllers;
 
-import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.DAOs.StockDAO;
-import ir.Epy.MyStock.Database;
-import ir.Epy.MyStock.exceptions.StockNotFoundException;
-import ir.Epy.MyStock.models.Stock;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * Created customer_id esihaj on 4/8/16.

@@ -2,15 +2,20 @@
 DROP TABLE  transactions IF EXISTS;
 DROP TABLE credit_requests IF EXISTS ;
 DROP TABLE stock_requests IF EXISTS ;
-DROP TABLE  stocks IF EXISTS ;
+DROP TABLE stock_shares IF EXISTS ;
+DROP TABLE stocks IF EXISTS ;
 DROP TABLE customers IF EXISTS ;
 
 CREATE TABLE customers (
   id VARCHAR(100) NOT NULL ,
+  username VARCHAR(100) NOT NULL,
+  password VARCHAR(100) NOT NULL,
   name VARCHAR(100) NOT NULL,
   family VARCHAR(100) NOT  NULL,
   deposit INTEGER DEFAULT 1000,
-  PRIMARY KEY (id)
+  role VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE (username)
 );
 
 CREATE TABLE stocks(

@@ -2,10 +2,8 @@ package ir.Epy.MyStock.controllers;
 
 import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.DAOs.CustomerDAO;
-import ir.Epy.MyStock.Database;
 import ir.Epy.MyStock.exceptions.*;
 import ir.Epy.MyStock.models.Customer;
-import ir.Epy.MyStock.models.Stock;
 import ir.Epy.MyStock.models.StockRequest;
 
 import javax.servlet.ServletException;

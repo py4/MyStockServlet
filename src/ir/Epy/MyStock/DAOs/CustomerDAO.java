@@ -1,5 +1,7 @@
 package ir.Epy.MyStock.DAOs;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.DBConnection;
 import ir.Epy.MyStock.Mappers.CustomerMapper;
 import ir.Epy.MyStock.exceptions.CustomerAlreadyExistsException;
@@ -13,11 +15,27 @@ import java.util.Arrays;
 public class CustomerDAO extends DAO {
 
     private static CustomerDAO ourInstance = new CustomerDAO();
+    private int maxId = 0;
+    private int default_deposit = 1000;
+    private String default_role = Constants.USER_ROLE_CUSTOMER;
 
     private CustomerDAO() {
         TABLE_NAME = "customers";
-        db_fields = new ArrayList<String> (Arrays.asList("ID", "NAME", "FAMILY", "DEPOSIT"));
+        db_fields = new ArrayList<String> (Arrays.asList("ID", "USERNAME", "PASSWORD", "ROLE", "NAME", "FAMILY", "DEPOSIT"));
         db_pks = new ArrayList<String>(Arrays.asList("ID"));
+
+        ResultSet rs = null;
+        try {
+            rs = DBConnection.createStatement().executeQuery("select max(ID) as max_id from " + TABLE_NAME);
+            if (rs.next()) {
+                maxId = rs.getInt("max_id");
+                System.out.println("customer new max id = " + rs.getInt("max_id"));
+            }
+            else System.out.println("couldnt get max id ");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(Constants.DB_EXIT_CODE);
+        }
     }
 
 
@@ -34,9 +52,11 @@ public class CustomerDAO extends DAO {
             throw new CustomerNotFoundException();
     }
 
-    public void create(String id, String name, String family, Integer deposit) throws SQLException, CustomerAlreadyExistsException {
+    public void create(String username, String password, String name, String family) throws SQLException, CustomerAlreadyExistsException {
         try {
-            super.create(id, name, family, deposit);
+            maxId++;
+            super.create("" + maxId, username, password, default_role , name, family, default_deposit);
+
         } catch (SQLIntegrityConstraintViolationException e) {
             throw new CustomerAlreadyExistsException();
         }

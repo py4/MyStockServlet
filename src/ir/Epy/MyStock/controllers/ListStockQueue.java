@@ -2,7 +2,6 @@ package ir.Epy.MyStock.controllers;
 
 import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.DAOs.StockDAO;
-import ir.Epy.MyStock.Database;
 import ir.Epy.MyStock.exceptions.StockNotFoundException;
 import ir.Epy.MyStock.models.Stock;
 

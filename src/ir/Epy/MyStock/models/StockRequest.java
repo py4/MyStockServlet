@@ -2,7 +2,6 @@ package ir.Epy.MyStock.models;
 
 import ir.Epy.MyStock.DAOs.GTCDAO;
 import ir.Epy.MyStock.DAOs.StockDAO;
-import ir.Epy.MyStock.Database;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import ir.Epy.MyStock.exceptions.StockNotFoundException;
 
@@ -79,9 +78,10 @@ public abstract class StockRequest implements Comparable<StockRequest> {
     public abstract void process(PrintWriter out) throws CustomerNotFoundException, SQLException, StockNotFoundException;
 
     protected void log_transaction(Customer buyer, Customer seller, int quantity) {
-        Database.get_obj().log_stock_transaction(new StockTransactionLog(
-                buyer.id, seller.id, stock_symbol, type , quantity, buyer.getDeposit(), seller.getDeposit()
-        ));
+            //@TODO log transaction
+//        Database.get_obj().log_stock_transaction(new StockTransactionLog(
+//                buyer.id, seller.id, stock_symbol, type , quantity, buyer.getDeposit(), seller.getDeposit()
+//        ));
     }
 
     public int getId() {return  id;}

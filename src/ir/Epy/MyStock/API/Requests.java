@@ -1,15 +1,11 @@
 package ir.Epy.MyStock.API;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.DAOs.CustomerDAO;
 import ir.Epy.MyStock.DAOs.GTCDAO;
-import ir.Epy.MyStock.DAOs.StockDAO;
-import ir.Epy.MyStock.Database;
 import ir.Epy.MyStock.exceptions.*;
 import ir.Epy.MyStock.models.Customer;
-import ir.Epy.MyStock.models.Stock;
 import ir.Epy.MyStock.models.StockRequest;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -20,13 +16,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created customer_id py4_ on 5/6/16.

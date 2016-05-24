@@ -26,7 +26,7 @@ public class CustomerDAOTest {
         }
 
         try {
-            CustomerDAO.I().create("2","Ehsan", "HajYasini", 100);
+            CustomerDAO.I().create("esihaj", "pass", "Ehsan", "HajYasini");
             System.out.println("Customer added successfully");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,7 +35,7 @@ public class CustomerDAOTest {
         }
 
         try {
-            CustomerDAO.I().create("2", "Pooya", "Moradi", 200);
+            CustomerDAO.I().create("py4_", "pass","Pooya", "Moradi");
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (CustomerAlreadyExistsException e) {

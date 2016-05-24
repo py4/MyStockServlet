@@ -1,7 +1,7 @@
 package ir.Epy.MyStock.controllers;
 
 import ir.Epy.MyStock.Constants;
-import ir.Epy.MyStock.Database;
+import ir.Epy.MyStock.DAOs.CustomerDAO;
 import ir.Epy.MyStock.exceptions.CustomerAlreadyExistsException;
 
 import javax.servlet.ServletException;
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -32,12 +33,15 @@ public class NewCustomer extends HttpServlet {
 
         if(errors.size() == 0) {
             try {
-                Database.get_obj().add_customer(id,name,family);
+                //Database.get_obj().add_customer(id,name,family);
+                CustomerDAO.I().create(name,family,name, family);
                 request.setAttribute("success_message", Constants.CustomerAddedMessage);
                 request.getRequestDispatcher("/customers/index.jsp").forward(request, response);
                 return;
             } catch (CustomerAlreadyExistsException e) {
                 errors.add(Constants.CustomerExistsMessage);
+            } catch (SQLException e) {
+                errors.add(Constants.SQLExceptionMessage);
             }
         }
 
