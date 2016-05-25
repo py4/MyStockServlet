@@ -22,6 +22,7 @@ public abstract class StockRequest implements Comparable<StockRequest> {
     public int base_price;
     public int quantity;
     public boolean is_buy;
+    public int status; /* 0: pending, 1: accepted, 2: reject */
 
 
 
@@ -36,6 +37,16 @@ public abstract class StockRequest implements Comparable<StockRequest> {
         this.quantity = quantity;
         this.type = type;
         this.is_buy = is_buy;
+    }
+    public StockRequest(Integer id, String customer_id, String stock_symbol, int base_price, int quantity, String type, Boolean is_buy, int status) {
+        this.id = id;
+        this.customer_id = customer_id;
+        this.stock_symbol = stock_symbol;
+        this.base_price = base_price;
+        this.quantity = quantity;
+        this.type = type;
+        this.is_buy = is_buy;
+        this.status = status;
     }
 
     public Stock get_stock() throws StockNotFoundException, SQLException {

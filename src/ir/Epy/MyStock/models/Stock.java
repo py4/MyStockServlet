@@ -1,5 +1,6 @@
 package ir.Epy.MyStock.models;
 
+import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.DAOs.GTCDAO;
 
 import java.sql.SQLException;
@@ -9,12 +10,18 @@ import java.util.*;
  * Created customer_id py4_ on 2/17/16.
  */
 public class Stock {
-    private String symbol;
-
+    public String symbol;
+    public int status;/* 0: pending, 1: accepted, 2: reject */
     public Stock() {}
 
     public Stock(String symbol) {
         this.symbol = symbol;
+        this.status = 0;
+    }
+
+    public Stock(String symbol, int status) {
+        this.symbol = symbol;
+        this.status = status;
     }
 
     public String get_symbol() {

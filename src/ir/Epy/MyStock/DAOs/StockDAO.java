@@ -18,10 +18,11 @@ import java.util.Arrays;
 public class StockDAO extends DAO {
 
     private static StockDAO ourInstance = new StockDAO();
+    private int default_status = 0;//pending
 
     private StockDAO() {
         TABLE_NAME = "stocks";
-        db_fields = new ArrayList<String> (Arrays.asList("SYMBOL"));
+        db_fields = new ArrayList<String> (Arrays.asList("SYMBOL", "STATUS"));
         db_pks = new ArrayList<String>(Arrays.asList("SYMBOL"));
     }
 
@@ -41,7 +42,7 @@ public class StockDAO extends DAO {
 
     public void create(String symbol) throws SQLException, StockAlreadyExistsException {
         try {
-            super.create(symbol);
+            super.create(symbol, default_status);
         } catch (SQLIntegrityConstraintViolationException e) {
             throw new StockAlreadyExistsException();
         }

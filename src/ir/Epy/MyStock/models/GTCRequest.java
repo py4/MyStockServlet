@@ -18,6 +18,11 @@ public class GTCRequest extends ir.Epy.MyStock.models.StockRequest {
 
     public GTCRequest(Integer id, String customer_id, String stock_symbol, int base_price, int quantity, String type, Boolean is_buy) {
         super(id, customer_id,stock_symbol,base_price,quantity,type,is_buy);
+        this.status = 0;
+    }
+
+    public GTCRequest(Integer id, String customer_id, String stock_symbol, int base_price, int quantity, String type, Boolean is_buy, int status) {
+        super(id, customer_id,stock_symbol,base_price,quantity,type,is_buy, status);
     }
 
     @Override

@@ -21,7 +21,7 @@ public class CustomerDAO extends DAO {
 
     private CustomerDAO() {
         TABLE_NAME = "customers";
-        db_fields = new ArrayList<String> (Arrays.asList("ID", "USERNAME", "PASSWORD", "ROLE", "NAME", "FAMILY", "DEPOSIT"));
+        db_fields = new ArrayList<String> (Arrays.asList("ID", "USERNAME", "PASSWORD", "NAME", "FAMILY", "ROLE", "DEPOSIT"));
         db_pks = new ArrayList<String>(Arrays.asList("ID"));
 
         ResultSet rs = null;
@@ -50,6 +50,16 @@ public class CustomerDAO extends DAO {
             return CustomerMapper.mapRow(rs);
         else
             throw new CustomerNotFoundException();
+    }
+
+    public String login(String username, String password) throws SQLException {
+        PreparedStatement ps = DBConnection.prepareStatement("SELECT * FROM " + TABLE_NAME + " s WHERE USERNAME=? AND PASSWORD=?");
+        ps.setString(1, username);
+        ps.setString(2, password);
+        ResultSet rs = ps.executeQuery();
+        if(rs.next())
+            return rs.getString("ID");
+        return "";
     }
 
     public void create(String username, String password, String name, String family) throws SQLException, CustomerAlreadyExistsException {

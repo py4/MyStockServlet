@@ -1,7 +1,6 @@
 package ir.Epy.MyStock.API;
 
 import com.google.gson.Gson;
-import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.DAOs.CustomerDAO;
 import ir.Epy.MyStock.exceptions.CustomerAlreadyExistsException;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
@@ -32,34 +31,36 @@ public class Customers  extends HttpServlet {
         private Pattern regExIdPattern = Pattern.compile("/([0-9]*)");
         private Pattern regExNewPattern = Pattern.compile("/new");
         private Pattern regExEditPattern = Pattern.compile("/edit");
+        private Pattern regExLoginPattern = Pattern.compile("/login");
 
 
         private Integer id;
         public String response;
 
-        public RestRequest(String pathInfo, JSONObject params) throws ServletException, SQLException {
+        public RestRequest(String method, String pathInfo, JSONObject params) throws ServletException, SQLException {
             // regex parse pathInfo
             Matcher matcher;
-            Gson gson = new Gson();
 
-            if (pathInfo == null) { //[GET ALL]
-                ArrayList<Customer> customers = CustomerDAO.I().getAll();
-                response = gson.toJson(customers);
+            if (method.equals("GET")) { //[GET ALL]
+                handle_get_all();
                 return;
             }
 
             matcher = regExNewPattern.matcher(pathInfo); //[POST NEW]
             if (matcher.find()) {
-                JSONObject obj = new JSONObject();
+                handle_new(params);
+                return;
+            }
 
-                try {
-                    CustomerDAO.I().create((String)params.get("username"),(String)params.get("password"), (String)params.get("name"),(String)params.get("family"));
-                    obj.put("status", "200");
-                } catch (CustomerAlreadyExistsException e) {
-                    e.printStackTrace();
-                    obj.put("status", "400");
-                }
-                response = obj.toString();
+            matcher = regExEditPattern.matcher(pathInfo); //[POST NEW]
+            if (matcher.find()) {
+                handle_edit(params);
+                return;
+            }
+
+            matcher = regExLoginPattern.matcher(pathInfo); //[POST NEW]
+            if (matcher.find()) {
+                handle_login(params);
                 return;
             }
 
@@ -67,17 +68,73 @@ public class Customers  extends HttpServlet {
             matcher = regExIdPattern.matcher(pathInfo); //[GET ID]
             if (matcher.find()) {
                 id = Integer.parseInt(matcher.group(1));
-                try {
-                    response = gson.toJson(CustomerDAO.I().find(""+id));
-                } catch (CustomerNotFoundException e) {
-                    e.printStackTrace();
-                }
+                handle_getId();
                 return;
             }
 
 
 
             throw new ServletException("Invalid URI");
+        }
+
+        private void handle_new(JSONObject params) throws SQLException {
+            JSONObject rsp = new JSONObject();
+
+            try {
+                CustomerDAO.I().create((String)params.get("username"),(String)params.get("password"), (String)params.get("name"),(String)params.get("family"));
+                rsp.put("status", "200");
+            } catch (CustomerAlreadyExistsException e) {
+                e.printStackTrace();
+                rsp.put("status", "400");
+            }
+            response = rsp.toString();
+        }
+
+        private void handle_get_all() throws SQLException {
+            Gson gson = new Gson();
+            ArrayList<Customer> customers = CustomerDAO.I().getAll();
+            response = gson.toJson(customers);
+        }
+        private void handle_getId() throws SQLException {
+            Gson gson = new Gson();
+            try {
+                response = gson.toJson(CustomerDAO.I().find(""+id));
+            } catch (CustomerNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        private void handle_edit(JSONObject params) throws SQLException {
+            JSONObject rsp = new JSONObject();
+            try {
+                Customer c = CustomerDAO.I().find((String)params.get("id"));
+                if(params.get("password") != null)
+                    c.password = (String) params.get("password");
+                if(params.get("name") != null)
+                    c.name = (String) params.get("name");
+                if(params.get("family") != null)
+                    c.family = (String) params.get("family");
+                if(params.get("role") != null)
+                    c.role = (String) params.get("role");
+
+                CustomerDAO.I().update(c);
+                rsp.put("status", "200");
+            } catch (CustomerNotFoundException e) {
+                e.printStackTrace();
+                rsp.put("status", "400");
+            }
+            response = rsp.toString();
+        }
+        private void handle_login(JSONObject params) throws SQLException {
+            JSONObject rsp = new JSONObject();
+            String id = CustomerDAO.I().login((String)params.get("username"), (String)params.get("password"));
+            System.out.println("login id = " + id);
+            if (!id.equals("")) {// couldn't login
+                rsp.put("status", "200");
+                rsp.put("id", id);
+            } else {
+                rsp.put("status", "400");
+            }
+            response = rsp.toString();
         }
     }
 
@@ -87,7 +144,7 @@ public class Customers  extends HttpServlet {
         try {
             System.out.println("path_info: " + request.getPathInfo());
             System.out.println("srv_path_info: " + request.getServletPath());
-            RestRequest rs = new RestRequest(request.getPathInfo(), null);
+            RestRequest rs = new RestRequest("GET", request.getPathInfo(), null);
             response.getWriter().write(rs.response);
 
         } catch (SQLException e) {
@@ -100,9 +157,8 @@ public class Customers  extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String payload = request.getParameterNames().nextElement();
         try {
-            System.out.println("payload "+ payload);
             JSONObject json = (JSONObject)new JSONParser().parse(payload);
-            RestRequest rs = new RestRequest(request.getPathInfo(), json);
+            RestRequest rs = new RestRequest("POST", request.getPathInfo(), json);
             response.setContentType("application/json");
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.getWriter().print(rs.response);

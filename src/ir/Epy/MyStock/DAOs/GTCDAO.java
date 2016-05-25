@@ -19,7 +19,7 @@ public class GTCDAO extends DAO {
     private GTCDAO() {
         TABLE_NAME = "stock_requests";
         //db_fields = new ArrayList<String> (Arrays.asList("ID", "CUSTOMER_ID", "STOCK_SYMBOL", "BASE_PRICE", "QUANTITY", "IS_BUY"));
-        db_fields = new ArrayList<String> (Arrays.asList("ID", "CUSTOMER_ID", "STOCK_SYMBOL", "BASE_PRICE", "QUANTITY", "TYPE", "IS_BUY"));
+        db_fields = new ArrayList<String> (Arrays.asList("ID", "CUSTOMER_ID", "STOCK_SYMBOL", "BASE_PRICE", "QUANTITY", "TYPE", "IS_BUY", "STATUS"));
         db_pks = new ArrayList<String>(Arrays.asList("ID"));
 
         ResultSet rs = null;

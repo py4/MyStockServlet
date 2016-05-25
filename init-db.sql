@@ -20,6 +20,7 @@ CREATE TABLE customers (
 
 CREATE TABLE stocks(
   symbol VARCHAR(100),
+  status SMALLINT,
   PRIMARY KEY (symbol)
 );
 
@@ -40,6 +41,7 @@ CREATE TABLE stock_requests(
   base_price INTEGER,
   customer_id VARCHAR(100) NOT NULL,
   stock_symbol VARCHAR(100),
+  status SMALLINT,
   PRIMARY KEY (id),
   FOREIGN KEY (customer_id) REFERENCES customers,
   FOREIGN KEY (stock_symbol) REFERENCES stocks
@@ -54,6 +56,10 @@ CREATE TABLE credit_requests(
   customer_id VARCHAR(100) NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (customer_id) REFERENCES customers
+);
+
+CREATE TABLE config (
+  limit INTEGER NOT NULL
 );
 
 CREATE TABLE transaction (
