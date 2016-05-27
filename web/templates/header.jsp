@@ -33,20 +33,20 @@
 
                         <li><a class="navbar-brand" href="${pageContext.request.contextPath}/credit/new"><i class="fa fa-credit-card"></i>درخواست اعتبار</a></li>
                         <li><a class="navbar-brand" href="${pageContext.request.contextPath}/requests/new"><i class="fa fa-newspaper-o"></i>درخواست جدید</a></li>
-                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/stock/index.jsp"><i class="fa fa-newspaper-o"></i>مشاهده‌ی وضعیت بازار</a></li>
+                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/stock"><i class="fa fa-newspaper-o"></i>مشاهده‌ی وضعیت بازار</a></li>
                         <li><a class="navbar-brand" href="#"><i class="fa fa-newspaper-o"></i>مشاهده‌ی صفحه‌ی پروفایل خود</a></li>
 
                     <% } else if(customer.is_accountant()) { %>
 
                         <li><a class="navbar-brand" href="${pageContext.request.contextPath}/admin/requests"><i class="fa fa-money"></i>مدیریت درخواست‌های مالی</a></li>
                         <li><a class="navbar-brand" href="#"><i class="fa fa-money"></i>مدیریت درخواست‌های تراکنش</a></li>
-                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/stock/index.jsp"><i class="fa fa-newspaper-o"></i>مشاهده‌ی وضعیت بازار</a></li>
+                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/stock"><i class="fa fa-newspaper-o"></i>مشاهده‌ی وضعیت بازار</a></li>
                         <li><a class="navbar-brand" href="#"><i class="fa fa-newspaper-o"></i>مشاهده‌ی صفحه‌ی پروفایل خود</a></li>
 
                     <% } else if(customer.is_owner()) { %>
 
-                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/stock/new.jsp"><i class="fa fa-money"></i>اضافه کردن نماد جدید</a></li>
-                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/stock/index.jsp"><i class="fa fa-newspaper-o"></i>مشاهده‌ی وضعیت بازار</a></li>
+                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/stock/new"><i class="fa fa-money"></i>اضافه کردن نماد جدید</a></li>
+                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/stock"><i class="fa fa-newspaper-o"></i>مشاهده‌ی وضعیت بازار</a></li>
                         <li><a class="navbar-brand" href="#"><i class="fa fa-newspaper-o"></i>مشاهده‌ی صفحه‌ی پروفایل خود</a></li>
 
                     <% } else if(customer.is_admin()) { %>
