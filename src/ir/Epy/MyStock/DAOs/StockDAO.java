@@ -19,7 +19,7 @@ import java.util.Arrays;
 public class StockDAO extends DAO {
 
     private static StockDAO ourInstance = new StockDAO();
-    private int default_status = Constants.PendingStatus;
+    private final int default_status = Constants.PendingStatus;//pending
 
     private StockDAO() {
         TABLE_NAME = "stocks";
