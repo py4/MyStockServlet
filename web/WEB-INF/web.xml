@@ -58,8 +58,7 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>AdminActions</web-resource-name>
-            <url-pattern>/admin/manage_roles.jsp</url-pattern>
-            <url-pattern>/admin/update_role</url-pattern>
+            <url-pattern>/admin/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>

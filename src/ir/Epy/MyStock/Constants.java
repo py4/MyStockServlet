@@ -28,6 +28,7 @@ public class Constants {
     public static final String SQLExceptionMessage = "We messed up somewhere with the SQL...";
     public static final String RoleUpdatedMessage = "نقش رو آپدیت کردیم";
     public static final String RoleNotFoundMessage = "نقش پیدا نشد";
+    public static final String limit = "محدودیت";
     public static final Integer PendingStatus = 0;
     public static final Integer AcceptStatus = 1;
     public static final Integer RejectStatus = 2;
@@ -43,6 +44,8 @@ public class Constants {
     public static final String CUSTOMER_ROLE = "customer";
 
     public static String NotProvided(String str) {
-        return str + " Not Provided";
+        return str + " فراهم نشده";
     }
+    public static String ShouldBeNumeric(String str) { return str + " باید عدد باشد";}
+    public static String UpdatedMessage(String str) { return str + " به روز رسانی شد";}
 }

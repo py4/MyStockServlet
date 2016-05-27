@@ -67,7 +67,9 @@ CREATE TABLE credit_requests(
 );
 
 CREATE TABLE config (
-  limit INTEGER NOT NULL
+  limit INTEGER NOT NULL,
+  id INTEGER NOT NULL,
+  PRIMARY  KEY(id)
 );
 
 INSERT INTO customers (id, username, password, name, family, deposit)
@@ -75,6 +77,9 @@ VALUES ('1','admin','admin','The ','One', 100000);
 
 INSERT INTO roles(username, role_name)
 VALUES ('admin', 'admin')
+
+INSERT INTO config(id, limit)
+ VALUES ('1', 1000000)
 
 
 
