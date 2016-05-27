@@ -12,16 +12,17 @@
 
 <div class="container">
     <div class="row row-centered">
-        <h2>لیست نماد‌ها</h2>
+        <h2>افزودن نماد</h2>
         <div class="col-sm-7 well col-centered">
-            <form id="request" action="/stock/queues" class="form-horizontal" method="post">
-                <select id="symbol" name="symbol">
-                    <c:forEach var="sym" items="${symbol_list}">
-                        <option value="${sym}"><c:out value="${sym}"/></option>
-                    </c:forEach>
-                </select>
+            <form id="request" action="/stock/new" class="form-horizontal" method="post">
+                <div class="form-group">
+                    <label for="symbol" class="col-sm-3 control-label">نام نماد</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="symbol" id="symbol" placeholder="نام نماد">
+                    </div>
+                </div>
 
-                <button type="submit" class="btn btn-success" name="action" value="show">نمایش</button>
+                <button type="submit" class="btn btn-success" name="action" value="show">اضافه کن!</button>
             </form>
 
             </table>

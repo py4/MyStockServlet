@@ -1,5 +1,6 @@
 package ir.Epy.MyStock.API;
 
+import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.DAOs.StockDAO;
 import ir.Epy.MyStock.exceptions.StockAlreadyExistsException;
 import ir.Epy.MyStock.exceptions.StockNotFoundException;
@@ -56,7 +57,7 @@ public class Stocks extends HttpServlet {
 
         private void handle_get_all() throws SQLException {
             JSONObject obj = new JSONObject();
-            obj.put("stocks", StockDAO.I().getAll());
+            obj.put("stocks", StockDAO.I().get_all(Constants.AcceptStatus));
             response = obj.toString();
         }
 

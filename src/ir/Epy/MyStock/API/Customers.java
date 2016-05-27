@@ -113,8 +113,6 @@ public class Customers  extends HttpServlet {
                     c.name = (String) params.get("name");
                 if(params.get("family") != null)
                     c.family = (String) params.get("family");
-                if(params.get("role") != null)
-                    c.role = (String) params.get("role");
 
                 CustomerDAO.I().update(c);
                 rsp.put("status", "200");

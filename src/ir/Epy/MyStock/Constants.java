@@ -13,6 +13,9 @@ public class Constants {
     public static final String NotEnoughMoneyMessage = "Not enough money";
     public static final String NotEnoughShareMessage = "Not enough share";
     public static final String SymbolNotFoundMessage = "Invalid symbol id";
+    public static final String SymbolAlreadyExistsMessage = "symbol is already defined";
+    public static final String SymbolAddedMessage = "symbol was created";
+    public static final String SymbolUpdatedMessage = "symbol was updated";
     public static final String InvalidTypeMessage = "Invalid type";
     public static final String OrderIsQueuedMessage = "Order is queued";
     public static final String OrderDeclinedMessage = "Order is declined";
@@ -30,8 +33,6 @@ public class Constants {
     /*****************************************************************************/
     public static final int DB_EXIT_CODE = 1;
     /*****************************************************************************/
-    public static final String USER_ROLE_ADMIN = "admin";
-    public static final String USER_ROLE_CUSTOMER = "customer";
 
     public static final String ACCOUNTANT_ROLE = "accountant";
     public static final String OWNER_ROLE = "owner";

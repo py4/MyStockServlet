@@ -50,6 +50,7 @@
         <auth-constraint>
             <role-name>admin</role-name>
             <role-name>customer</role-name>
+            <role-name>owner</role-name>
         </auth-constraint>
     </security-constraint>
 
@@ -58,6 +59,9 @@
     </security-role>
     <security-role>
         <role-name>customer</role-name>
+    </security-role>
+    <security-role>
+        <role-name>owner</role-name>
     </security-role>
 
 </web-app>

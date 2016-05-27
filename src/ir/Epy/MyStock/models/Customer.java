@@ -18,7 +18,6 @@ public class Customer {
     public String id;
     public String username, password;
     public String name, family;
-    public String role;
     public int deposit;
     public String auth_token;
 

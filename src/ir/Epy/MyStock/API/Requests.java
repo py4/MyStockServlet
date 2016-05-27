@@ -166,8 +166,8 @@ public class Requests extends HttpServlet {
         //JSONObject obj = new JSONObject();
         try {
             Gson gson = new Gson();
-            //obj.put("requests", gson.toJson(GTCDAO.I().getAll()));
-            //System.out.println("{'requests':"+gson.toJson(GTCDAO.I().getAll())+"}");
+            //obj.put("requests", gson.toJson(GTCDAO.I().get_all()));
+            //System.out.println("{'requests':"+gson.toJson(GTCDAO.I().get_all())+"}");
             response.getWriter().print("{\"requests\":"+gson.toJson(GTCDAO.I().getAll())+"}");
         } catch (SQLException e) {
             e.printStackTrace();
