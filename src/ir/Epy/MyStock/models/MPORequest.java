@@ -17,7 +17,7 @@ import static ir.Epy.MyStock.Constants.MPO_ID;
 public class MPORequest extends ir.Epy.MyStock.models.StockRequest {
 
     public MPORequest(String customer_id, String stock_symbol, int base_price, int quantity, String type, Boolean is_buy) {
-        super(MPO_ID, customer_id, stock_symbol,base_price,quantity,type,is_buy);
+        super(MPO_ID, customer_id, stock_symbol,base_price,quantity,type,is_buy, Constants.AcceptStatus);
     }
 
     @Override

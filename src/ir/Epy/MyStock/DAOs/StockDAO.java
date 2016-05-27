@@ -23,7 +23,7 @@ public class StockDAO extends DAO {
 
     private StockDAO() {
         TABLE_NAME = "stocks";
-        db_fields = new ArrayList<String> (Arrays.asList("SYMBOL", "STATUS"));
+        db_fields = new ArrayList<String> (Arrays.asList("SYMBOL", "STATUS", "OWNER_ID"));
         db_pks = new ArrayList<String>(Arrays.asList("SYMBOL"));
     }
 
@@ -41,9 +41,9 @@ public class StockDAO extends DAO {
             throw new StockNotFoundException();
     }
 
-    public void create(String symbol) throws SQLException, StockAlreadyExistsException {
+    public void create(String symbol, String owner_id) throws SQLException, StockAlreadyExistsException {
         try {
-            super.create(symbol, default_status);
+            super.create(symbol, default_status, owner_id);
         } catch (SQLIntegrityConstraintViolationException e) {
             throw new StockAlreadyExistsException();
         }

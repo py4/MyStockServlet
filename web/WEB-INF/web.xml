@@ -55,17 +55,48 @@
         </auth-constraint>
     </security-constraint>
 
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>CustomerOnlyActions</web-resource-name>
+            <url-pattern>/requests/new</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>customer</role-name>
+        </auth-constraint>
+    </security-constraint>
+
 
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>AdminActions</web-resource-name>
-            <url-pattern>/admin/manage_roles.jsp</url-pattern>
-            <url-pattern>/admin/update_role</url-pattern>
+            <url-pattern>/admin/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
         </auth-constraint>
     </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>OwnerActions</web-resource-name>
+            <url-pattern>/stock/new</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>owner</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>AccountantActions</web-resource-name>
+            <url-pattern>/accountant/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>accountant</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+
 
     <security-role>
         <role-name>admin</role-name>

@@ -1,16 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: py4_
-  Date: 5/26/16
-  Time: 7:04 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>403 Forbidden</title>
 </head>
 <body>
-This is 403 page!
+<h1>Forbidden</h1>
+<p>You don't have permission to access this page on this server.</p>
 </body>
 </html>

@@ -50,10 +50,11 @@ public class GTCDAO extends DAO {
         else return null;
     }
 
-    public GTCRequest create(String customer_id, String stock_symbol, Integer base_price, Integer quantity, String type, Boolean is_buy) throws SQLException {
-        System.out.println("new req id " + (maxId+1));
-        super.create(maxId+1, customer_id, stock_symbol, base_price, quantity, type, is_buy, default_status); //@TODO check with Config.limit
-        return new GTCRequest(maxId++, customer_id, stock_symbol, base_price, quantity, type, is_buy);
+    public GTCRequest create(String customer_id, String stock_symbol, Integer base_price, Integer quantity, String type, Boolean is_buy, int status) throws SQLException {
+        maxId++;
+        System.out.println("new req id " + (maxId));
+        super.create(maxId, customer_id, stock_symbol, base_price, quantity, type, is_buy, status); //@TODO check with Config.limit
+        return new GTCRequest(maxId, customer_id, stock_symbol, base_price, quantity, type, is_buy, status);
     }
 //    public void delete(int id) throws SQLException {
 //        String query = "DELETE FROM " + TABLE_NAME + " r WHERE r.ID=" + id;
@@ -88,8 +89,9 @@ public class GTCDAO extends DAO {
         return reqs;
     }
 
-    public ArrayList<StockRequest> getAll() throws SQLException {
-        ResultSet rs = super.all();
+
+    public ArrayList<StockRequest> getAll(int status) throws SQLException {
+        ResultSet rs = super.all("WHERE STATUS='"+status+"'");
         ArrayList<StockRequest> cs = new ArrayList<>();
         while(rs.next())
             cs.add(GTCRequestMapper.mapRow(rs));
