@@ -51,6 +51,7 @@
             <role-name>admin</role-name>
             <role-name>customer</role-name>
             <role-name>owner</role-name>
+            <role-name>accountant</role-name>
         </auth-constraint>
     </security-constraint>
 

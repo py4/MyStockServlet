@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * Created customer_id esihaj on 4/8/16.
  */
 
-@WebServlet("/admin/requests")
+@WebServlet("/credit/requests")
 public class ListCreditRequests extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,7 +23,7 @@ public class ListCreditRequests extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        request.getRequestDispatcher("/admin/requests.jsp").forward(request, response);
+        request.getRequestDispatcher("/credit/requests.jsp").forward(request, response);
 
     }
 

@@ -3,7 +3,6 @@ package ir.Epy.MyStock.models;
 import ir.Epy.MyStock.DAOs.CreditRequestDAO;
 import ir.Epy.MyStock.DAOs.CustomerDAO;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
-import ir.Epy.MyStock.exceptions.InvalidCreditValueRequest;
 
 import java.sql.SQLException;
 
@@ -15,13 +14,14 @@ import static ir.Epy.MyStock.Constants.AcceptStatus;
 /* 0: pending, 1: accepted, 2: reject */
 
 public class CreditRequest {
-    private String id;
-    private String customer_id;
-    private int amount;
-    private int status;
+    public int id;
+    public String customer_id;
+    public int amount;
+    public int status;
+    public boolean is_deposit;
 
 
-    public String getId() {
+    public int getId() {
         return id;
     }
     public String getCustomerId() {
@@ -36,11 +36,12 @@ public class CreditRequest {
         return status;
     }
 
-    public CreditRequest(String req_id, String user, int amount, int status) {
+    public CreditRequest(int req_id, String user, int amount, int status, boolean is_deposit) {
         this.id = req_id;
         this.customer_id = user;
         this.amount = amount;
         this.status = status;
+        this.is_deposit = is_deposit;
     }
 
     //@Haji: is this OK?
@@ -49,7 +50,9 @@ public class CreditRequest {
         CreditRequestDAO.I().update(this);
         if(this.status == AcceptStatus) {
             Customer c = CustomerDAO.I().find(customer_id);
-            c.increase_deposit(amount);
+            if(is_deposit)
+                c.increase_deposit(amount);
+            else c.decrease_deposit(amount);
             CustomerDAO.I().update(c);
         }
     }
@@ -65,6 +68,9 @@ public class CreditRequest {
         sb.append("]: customer_id [");
         sb.append(customer_id);
         sb.append("] requested to ");
+        if(is_deposit)
+            sb.append("deposit ");
+        else sb.append("withdraw ");
         sb.append("[");
         sb.append(amount);
         sb.append("]");

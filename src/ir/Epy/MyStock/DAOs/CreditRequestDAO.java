@@ -25,7 +25,7 @@ public class CreditRequestDAO extends DAO {
 
     private CreditRequestDAO() {
         TABLE_NAME = "credit_requests";
-        db_fields = new ArrayList<String> (Arrays.asList("ID", "STATUS", "CUSTOMER_ID", "AMOUNT"));
+        db_fields = new ArrayList<String> (Arrays.asList("ID", "STATUS", "CUSTOMER_ID", "AMOUNT", "IS_DEPOSIT"));
         db_pks = new ArrayList<String>(Arrays.asList("ID"));
 
         ResultSet rs = null;
@@ -71,10 +71,10 @@ public class CreditRequestDAO extends DAO {
         return result;
     }
 
-    public void create(String customer_id, int amount, int status) throws SQLException, InvalidCreditValueRequest {
+    public void create(String customer_id, int amount, int status, boolean is_deposit) throws SQLException, InvalidCreditValueRequest {
         if(amount < 0)
             throw new InvalidCreditValueRequest();
-        super.create(maxId+1, status, customer_id, amount);
+        super.create(maxId+1, status, customer_id, amount, is_deposit);
         maxId++;
     }
 

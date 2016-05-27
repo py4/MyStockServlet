@@ -23,12 +23,6 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="customer_id" class="col-sm-3 control-label">کد درخواست‌دهنده</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" name="customer_id" id="customer_id" placeholder="کد درخواست‌دهنده">
-                    </div>
-                </div>
 
                 <div class="form-group">
                     <label for="credit_value" class="col-sm-3 control-label">مبلغ</label>
