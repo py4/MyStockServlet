@@ -3,6 +3,7 @@ package ir.Epy.MyStock.controllers;
 import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.DAOs.CustomerDAO;
 import ir.Epy.MyStock.DAOs.StockDAO;
+import ir.Epy.MyStock.Utils;
 import ir.Epy.MyStock.exceptions.*;
 import ir.Epy.MyStock.models.Customer;
 import ir.Epy.MyStock.models.StockRequest;
@@ -44,18 +45,37 @@ public class NewRequest extends HttpServlet {
                 if(!customer.can_buy(quantity, price))
                     errors.add(Constants.NotEnoughMoneyMessage);
                 else {
+
                     System.out.println("we can buy it");
                     customer.decrease_deposit(price * quantity);
+
+
+                    // refund in case of reject
+                    if(req.status == Constants.PendingStatus) {
+                        Utils.redirect_with_message(request, response, "/customers/home.jsp", Constants.PendingRequestMessage);
+                        return;
+                    }
+
                     req.process(msg);
                 }
             }
             else {
                 if(!customer.can_sell(symbol, quantity))
                     errors.add(Constants.NotEnoughShareMessage);
-                StockRequest req = StockRequest.create_request(customer.id, symbol, price, quantity, type, false);
-                if(type.equals("GTC"))
-                    customer.decrease_share(symbol, quantity);
-                req.process(msg);
+                else {
+                    StockRequest req = StockRequest.create_request(customer.id, symbol, price, quantity, type, false);
+
+                    if (type.equals("GTC"))
+                        customer.decrease_share(symbol, quantity);
+
+                    // refund in case of reject
+                    if (req.status == Constants.PendingStatus) {
+                        Utils.redirect_with_message(request, response, "/customers/home.jsp", Constants.PendingRequestMessage);
+                        return;
+                    }
+
+                    req.process(msg);
+                }
             }
         } catch (StockNotFoundException e) {
             errors.add(Constants.SymbolNotFoundMessage);
@@ -66,14 +86,11 @@ public class NewRequest extends HttpServlet {
         }
 
 
-        if(errors.size() > 0) {
-            request.setAttribute("errors", errors);
-            request.getRequestDispatcher("/requests/new.jsp").forward(request, response);
-        } else {
-            HttpSession session = request.getSession(false);
-            session.setAttribute("success_message", org.toString());
-            response.sendRedirect("/requests/index.jsp");
-        }
+        if(errors.size() > 0)
+            Utils.forward_with_error(request, response, "/requests/new.jsp", errors);
+        else
+            Utils.redirect_with_message(request, response, "/requests/index.jsp", org.toString());
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -4,6 +4,12 @@ package ir.Epy.MyStock;
  * Created customer_id py4_ on 2/17/16.
  */
 public class Constants {
+
+    public class Names {
+        public static final String stock = "سهام";
+        public static final String quantity = "تعداد";
+        public static final String base_price = "قیمت پایه";
+    }
     public static final String CustomerAddedMessage = "New user is added";
     public static final String CustomerExistsMessage = "Repeated id";
     public static final String CustomerNotFoundMessage = "Unknown user id";
@@ -28,6 +34,9 @@ public class Constants {
     public static final String SQLExceptionMessage = "We messed up somewhere with the SQL...";
     public static final String RoleUpdatedMessage = "نقش رو آپدیت کردیم";
     public static final String RoleNotFoundMessage = "نقش پیدا نشد";
+    public static final String PendingRequestMessage = "درخواست شما به دلیل حجم تراکنش آن، نیازمند تایید است. لطفا صبوری کنید.";
+    public static final String RequestAcceptedMessage = "درخواست با موفقیت تایید شد";
+    public static final String RequestRejectedMessage = "درخواست با موفقیت لغو شد";
     public static final String limit = "محدودیت";
     public static final Integer PendingStatus = 0;
     public static final Integer AcceptStatus = 1;
@@ -48,4 +57,8 @@ public class Constants {
     }
     public static String ShouldBeNumeric(String str) { return str + " باید عدد باشد";}
     public static String UpdatedMessage(String str) { return str + " به روز رسانی شد";}
+    public static String RefundMessage(String username, Integer amount) { return "مقدار "+amount+" تومن به "+username+" اضافه شد."; }
+    public static String ReshareMessage(String username, String symbol, Integer quantity) { return quantity+" تا سهم از "+symbol+" به "+username+" اضافه شد"; }
+
+
 }

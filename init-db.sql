@@ -29,7 +29,9 @@ CREATE TABLE roles (
 CREATE TABLE stocks(
   symbol VARCHAR(100),
   status SMALLINT,
-  PRIMARY KEY (symbol)
+  owner_id varchar(100) not null,
+  PRIMARY KEY (symbol),
+  FOREIGN KEY (owner_id) REFERENCES customers
 );
 
 CREATE TABLE stock_shares (
@@ -76,10 +78,35 @@ INSERT INTO customers (id, username, password, name, family, deposit)
 VALUES ('1','admin','admin','The ','One', 100000);
 
 INSERT INTO roles(username, role_name)
-VALUES ('admin', 'admin')
+VALUES ('admin', 'admin');
+
+INSERT INTO customers (id, username, password, name, family, deposit)
+VALUES ('2','user1','user1','name1','family1', 100000);
+
+INSERT INTO roles(username, role_name)
+VALUES ('user1', 'customer');
+
+INSERT INTO customers (id, username, password, name, family, deposit)
+VALUES ('3','user2','user2','name2','family2', 100000);
+
+INSERT INTO roles(username, role_name)
+VALUES ('user2', 'customer');
+
+INSERT INTO customers (id, username, password, name, family, deposit)
+VALUES ('4','owner1','owner1','owner1','owner1', 100000);
+
+INSERT INTO roles(username, role_name)
+VALUES ('owner1', 'owner');
+
+INSERT INTO customers (id, username, password, name, family, deposit)
+VALUES ('5','accountant1','accountant1','accountant1','accountant1', 100000);
+
+INSERT INTO roles(username, role_name)
+VALUES ('accountant1', 'accountant');
+
 
 INSERT INTO config(id, limit)
- VALUES ('1', 1000000)
+ VALUES ('1', 1000000);
 
 
 

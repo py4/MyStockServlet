@@ -17,7 +17,7 @@ import static ir.Epy.MyStock.Constants.IOC_ID;
  */
 public class IOCRequest extends ir.Epy.MyStock.models.StockRequest {
     public IOCRequest(String customer_id, String stock_symbol, int base_price, int quantity, String type, Boolean is_buy) {
-        super(IOC_ID, customer_id, stock_symbol,base_price,quantity,type,is_buy);
+        super(IOC_ID, customer_id, stock_symbol,base_price,quantity,type,is_buy, Constants.AcceptStatus);
     }
 
     @Override

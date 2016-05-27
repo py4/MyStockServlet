@@ -51,6 +51,7 @@
             <role-name>admin</role-name>
             <role-name>customer</role-name>
             <role-name>owner</role-name>
+            <role-name>accountant</role-name>
         </auth-constraint>
     </security-constraint>
 
@@ -64,6 +65,18 @@
             <role-name>admin</role-name>
         </auth-constraint>
     </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>OwnerActions</web-resource-name>
+            <url-pattern>/stock/new</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>owner</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+
 
     <security-role>
         <role-name>admin</role-name>

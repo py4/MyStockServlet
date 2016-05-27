@@ -1,5 +1,7 @@
 package ir.Epy.MyStock.models;
 
+import ir.Epy.MyStock.Constants;
+import ir.Epy.MyStock.DAOs.ConfigDAO;
 import ir.Epy.MyStock.DAOs.GTCDAO;
 import ir.Epy.MyStock.DAOs.StockDAO;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
@@ -29,7 +31,7 @@ public abstract class StockRequest implements Comparable<StockRequest> {
     public StockRequest() {
     }
 
-    public StockRequest(Integer id, String customer_id, String stock_symbol, int base_price, int quantity, String type, Boolean is_buy) {
+    /*public StockRequest(Integer id, String customer_id, String stock_symbol, int base_price, int quantity, String type, Boolean is_buy) {
         this.id = id;
         this.customer_id = customer_id;
         this.stock_symbol = stock_symbol;
@@ -37,7 +39,7 @@ public abstract class StockRequest implements Comparable<StockRequest> {
         this.quantity = quantity;
         this.type = type;
         this.is_buy = is_buy;
-    }
+    } */
     public StockRequest(Integer id, String customer_id, String stock_symbol, int base_price, int quantity, String type, Boolean is_buy, int status) {
         this.id = id;
         this.customer_id = customer_id;
@@ -55,7 +57,7 @@ public abstract class StockRequest implements Comparable<StockRequest> {
 
     public static StockRequest create_request(String customer_id, String stock_symbol, int base_price, int quantity, String type, Boolean is_buy) throws SQLException {
         if(type.equals("GTC"))
-            return GTCDAO.I().create(customer_id, stock_symbol, base_price, quantity, type, is_buy);
+            return GTCDAO.I().create(customer_id, stock_symbol, base_price, quantity, type, is_buy, (quantity * base_price >= ConfigDAO.I().get_limit() ? Constants.PendingStatus : Constants.AcceptStatus));
         else if(type.equals("IOC"))
             return new IOCRequest(customer_id, stock_symbol, base_price, quantity, type, is_buy);
         else if(type.equals("MPO"))

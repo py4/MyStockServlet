@@ -16,10 +16,10 @@ import java.util.PriorityQueue;
  */
 public class GTCRequest extends ir.Epy.MyStock.models.StockRequest {
 
-    public GTCRequest(Integer id, String customer_id, String stock_symbol, int base_price, int quantity, String type, Boolean is_buy) {
+    /*public GTCRequest(Integer id, String customer_id, String stock_symbol, int base_price, int quantity, String type, Boolean is_buy) {
         super(id, customer_id,stock_symbol,base_price,quantity,type,is_buy);
         this.status = 0;
-    }
+    } */
 
     public GTCRequest(Integer id, String customer_id, String stock_symbol, int base_price, int quantity, String type, Boolean is_buy, int status) {
         super(id, customer_id,stock_symbol,base_price,quantity,type,is_buy, status);
@@ -42,8 +42,6 @@ public class GTCRequest extends ir.Epy.MyStock.models.StockRequest {
         while(true) {
             StockRequest sell_head = sell_requests.peek();
             StockRequest buy_head = buy_requests.peek();
-            System.out.println("sell head " + "id " + sell_head.customer_id + "price " + sell_head.base_price + "count " + sell_head.quantity);
-            System.out.println("buy head " + "id " + buy_head.customer_id + "price " + buy_head.base_price + "count " + buy_head.quantity);
             if(sell_head == null || buy_head == null || buy_head.base_price < sell_head.base_price)
                 break;
 

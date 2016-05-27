@@ -12,6 +12,7 @@ import java.util.*;
 public class Stock {
     public String symbol;
     public int status;/* 0: pending, 1: accepted, 2: reject */
+    public String owner_id;
     public Stock() {}
 
     public Stock(String symbol) {
@@ -19,9 +20,10 @@ public class Stock {
         this.status = 0;
     }
 
-    public Stock(String symbol, int status) {
+    public Stock(String symbol, int status, String owner_id) {
         this.symbol = symbol;
         this.status = status;
+        this.owner_id = owner_id;
     }
 
     public String get_symbol() {
