@@ -112,6 +112,26 @@
         <role-name>owner</role-name>
     </security-role>
 
+    <filter>
+        <filter-name>loadSalt</filter-name>
+        <filter-class>ir.Epy.MyStock.security.LoadSalt</filter-class>
+    </filter>
+    ...
+    <filter-mapping>
+        <filter-name>loadSalt</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>validateSalt</filter-name>
+        <filter-class>ir.Epy.MyStock.security.ValidateSalt</filter-class>
+    </filter>
+    ...
+    <filter-mapping>
+        <filter-name>validateSalt</filter-name>
+        <url-pattern>/credit/new</url-pattern>
+    </filter-mapping>
+
 </web-app>
 
 

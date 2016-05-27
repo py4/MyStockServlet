@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../templates/header.jsp"></jsp:include>
 
 <div class="container">
@@ -36,6 +36,7 @@
                         <button type="submit" class="btn btn-success">ثبت درخواست</button>
                     </div>
                 </div>
+                <input type="hidden" name="csrfPreventionSalt" value="<c:out value='${csrfPreventionSalt}'/>"/>
             </form>
         </div>
     </div>
