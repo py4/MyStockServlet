@@ -70,15 +70,6 @@ CREATE TABLE config (
   limit INTEGER NOT NULL
 );
 
-  id VARCHAR(100) NOT NULL ,
-  username VARCHAR(100) NOT NULL,
-  password VARCHAR(100) NOT NULL,
-  name VARCHAR(100) NOT NULL,
-  family VARCHAR(100) NOT  NULL,
-  deposit INTEGER DEFAULT 1000,
-  PRIMARY KEY (id),
-  UNIQUE (username)
-
 INSERT INTO customers (id, username, password, name, family, deposit)
 VALUES ('1','admin','admin','The ','One', 100000);
 

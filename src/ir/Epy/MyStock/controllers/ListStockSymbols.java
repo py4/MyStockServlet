@@ -1,5 +1,6 @@
 package ir.Epy.MyStock.controllers;
 
+import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.DAOs.StockDAO;
 
 import javax.servlet.ServletException;
@@ -22,7 +23,7 @@ public class ListStockSymbols extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            request.setAttribute("symbol_list", StockDAO.I().getAll());
+            request.setAttribute("symbol_list", StockDAO.I().get_all(Constants.AcceptStatus));
         } catch (SQLException e) {
             e.printStackTrace();
         }

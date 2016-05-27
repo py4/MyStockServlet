@@ -1,5 +1,6 @@
 package ir.Epy.MyStock.DAOs;
 
+import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.Mappers.CustomerMapper;
 import ir.Epy.MyStock.Mappers.StockMapper;
 import ir.Epy.MyStock.exceptions.CustomerAlreadyExistsException;
@@ -18,7 +19,7 @@ import java.util.Arrays;
 public class StockDAO extends DAO {
 
     private static StockDAO ourInstance = new StockDAO();
-    private int default_status = 0;//pending
+    private int default_status = Constants.PendingStatus;
 
     private StockDAO() {
         TABLE_NAME = "stocks";
@@ -48,8 +49,8 @@ public class StockDAO extends DAO {
         }
     }
 
-    public ArrayList<String> getAll() throws SQLException {
-        ResultSet rs = super.all();
+    public ArrayList<String> get_all(int status) throws SQLException {
+        ResultSet rs = super.all("WHERE STATUS="+status);
         ArrayList<String> cs = new ArrayList<>();
         while(rs.next())
             cs.add(StockMapper.mapRow(rs).get_symbol());

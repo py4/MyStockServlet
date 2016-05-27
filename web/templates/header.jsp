@@ -33,26 +33,26 @@
 
                         <li><a class="navbar-brand" href="${pageContext.request.contextPath}/credit/new"><i class="fa fa-credit-card"></i>درخواست اعتبار</a></li>
                         <li><a class="navbar-brand" href="${pageContext.request.contextPath}/requests/new"><i class="fa fa-newspaper-o"></i>درخواست جدید</a></li>
-                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/stock/index.jsp"><i class="fa fa-newspaper-o"></i>مشاهده‌ی وضعیت بازار</a></li>
+                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/stock"><i class="fa fa-newspaper-o"></i>مشاهده‌ی وضعیت بازار</a></li>
                         <li><a class="navbar-brand" href="#"><i class="fa fa-newspaper-o"></i>مشاهده‌ی صفحه‌ی پروفایل خود</a></li>
 
                     <% } else if(customer.is_accountant()) { %>
 
                         <li><a class="navbar-brand" href="${pageContext.request.contextPath}/admin/requests"><i class="fa fa-money"></i>مدیریت درخواست‌های مالی</a></li>
                         <li><a class="navbar-brand" href="#"><i class="fa fa-money"></i>مدیریت درخواست‌های تراکنش</a></li>
-                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/stock/index.jsp"><i class="fa fa-newspaper-o"></i>مشاهده‌ی وضعیت بازار</a></li>
+                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/stock"><i class="fa fa-newspaper-o"></i>مشاهده‌ی وضعیت بازار</a></li>
                         <li><a class="navbar-brand" href="#"><i class="fa fa-newspaper-o"></i>مشاهده‌ی صفحه‌ی پروفایل خود</a></li>
 
                     <% } else if(customer.is_owner()) { %>
 
-                        <li><a class="navbar-brand" href="#"><i class="fa fa-money"></i>اضافه کردن نماد جدید</a></li>
-                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/stock/index.jsp"><i class="fa fa-newspaper-o"></i>مشاهده‌ی وضعیت بازار</a></li>
+                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/stock/new"><i class="fa fa-money"></i>اضافه کردن نماد جدید</a></li>
+                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/stock"><i class="fa fa-newspaper-o"></i>مشاهده‌ی وضعیت بازار</a></li>
                         <li><a class="navbar-brand" href="#"><i class="fa fa-newspaper-o"></i>مشاهده‌ی صفحه‌ی پروفایل خود</a></li>
 
                     <% } else if(customer.is_admin()) { %>
 
                         <li><a class="navbar-brand" href="#"><i class="fa fa-money"></i>مشخص کردن حد مجاز برای معاملات</a></li>
-                        <li><a class="navbar-brand" href="#"><i class="fa fa-money"></i>تایید نماد جدید اضافه شده</a></li>
+                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/stock/approve"><i class="fa fa-money"></i>تایید نماد جدید اضافه شده</a></li>
                         <li><a class="navbar-brand" href="#"><i class="fa fa-file"></i>مشاهده‌ی گزارش</a></li>
                         <li><a class="navbar-brand" href="/admin/manage_roles.jsp"><i class="fa fa-money"></i>مدیریت نقش‌ها</a></li>
                         <li><a class="navbar-brand" href="#"><i class="fa fa-money"></i>مشاهده‌ی پروفایل دیگران</a></li>
