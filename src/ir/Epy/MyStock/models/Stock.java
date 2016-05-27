@@ -54,4 +54,11 @@ public class Stock {
         return result;
     }
 
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public int getStatus() {
+        return status;
+    }
 }

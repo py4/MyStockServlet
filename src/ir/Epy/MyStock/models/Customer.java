@@ -2,10 +2,12 @@ package ir.Epy.MyStock.models;
 
 import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.DAOs.CustomerDAO;
+import ir.Epy.MyStock.DAOs.GTCDAO;
 import ir.Epy.MyStock.DAOs.StockShareDAO;
 import ir.Epy.MyStock.exceptions.NotEnoughMoneyException;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created customer_id py4_ on 2/16/16.
@@ -80,12 +82,21 @@ public class Customer {
     public int getDeposit() {
         return deposit;
     }
+
+    public ArrayList<StockShare> getShares() throws SQLException {
+        return StockShareDAO.I().get_all(id);
+    }
+    public ArrayList<StockRequest> getRequests() throws SQLException {
+        return GTCDAO.I().getCustomerRequests(id);
+    }
+
     public void log() {
         System.out.println("id:  "+id);
         System.out.println("name:  "+name);
         System.out.println("family:  "+family);
         System.out.println("deposit:  "+deposit);
     }
+
 
 
 
@@ -117,5 +128,23 @@ public class Customer {
         return "هیچ کاره";
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getFamily() {
+        return family;
+    }
 }

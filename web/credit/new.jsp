@@ -19,7 +19,7 @@
                     <div class="col-sm-9">
                         <select class="form-control" id="transaction_type" name="transaction_type">
                             <option value="deposit">واریز</option>
-                            <option value="withdraw" disabled>برداشت</option>
+                            <option value="withdraw">برداشت</option>
                         </select>
                     </div>
                 </div>

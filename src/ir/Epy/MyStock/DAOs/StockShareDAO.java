@@ -38,5 +38,12 @@ public class StockShareDAO extends DAO {
             super.create(customer_id, stock_symbol, quantity);
     }
 
+    public ArrayList<StockShare> get_all(String customer_id) throws SQLException {
+        ResultSet rs = super.all("WHERE CUSTOMER_ID="+customer_id);
+        ArrayList<StockShare> cs = new ArrayList<>();
+        while(rs.next())
+            cs.add(StockShareMapper.mapRow(rs));
+        return cs;
+    }
 
 }
