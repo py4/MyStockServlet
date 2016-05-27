@@ -54,7 +54,7 @@
                         <li><a class="navbar-brand" href="#"><i class="fa fa-money"></i>مشخص کردن حد مجاز برای معاملات</a></li>
                         <li><a class="navbar-brand" href="#"><i class="fa fa-money"></i>تایید نماد جدید اضافه شده</a></li>
                         <li><a class="navbar-brand" href="#"><i class="fa fa-file"></i>مشاهده‌ی گزارش</a></li>
-                        <li><a class="navbar-brand" href="#"><i class="fa fa-money"></i>مدیریت نقش‌ها</a></li>
+                        <li><a class="navbar-brand" href="/admin/manage_roles.jsp"><i class="fa fa-money"></i>مدیریت نقش‌ها</a></li>
                         <li><a class="navbar-brand" href="#"><i class="fa fa-money"></i>مشاهده‌ی پروفایل دیگران</a></li>
                         <li><a class="navbar-brand" href="#"><i class="fa fa-money"></i>گرفتن بکآپ از پروژه</a></li>
 

@@ -7,6 +7,7 @@ import ir.Epy.MyStock.Mappers.CustomerMapper;
 import ir.Epy.MyStock.exceptions.CustomerAlreadyExistsException;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import ir.Epy.MyStock.models.Customer;
+import ir.Epy.MyStock.models.Role;
 
 import java.security.SecureRandom;
 import java.sql.*;
@@ -63,18 +64,9 @@ public class CustomerDAO extends DAO {
             return null;
     }
 
-    public String login(String username, String password) throws SQLException {
-        return "";
-        /*PreparedStatement ps = DBConnection.prepareStatement("SELECT * FROM " + TABLE_NAME + " s WHERE USERNAME=? AND PASSWORD=?");
-        ps.setString(1, username);
-        ps.setString(2, password);
-        ResultSet rs = ps.executeQuery();
-        if(rs.next()) {
-            Customer c = CustomerMapper.mapRow(rs);
-            return c.id;
-        }
-            return rs.getString("ID");
-        return ""; */
+    public String get_role_name(String username) throws SQLException {
+        Role role = RoleDAO.I().find(username);
+        return role.role_name;
     }
 
     public void create(String username, String password, String name, String family) throws SQLException, CustomerAlreadyExistsException {

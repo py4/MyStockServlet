@@ -20,8 +20,11 @@ public class Constants {
     public static final String InvalidCreditValueMessage = "Invalid value for credit";
     public static final String CreditRequestNotFoundMessage = "Unknown credit request";
     public static final String CreditRequestProcessedMessage = "Credit request processed";
+    public static final String NotValidRoleMessage = "Not Valid Role";
     public static final String CSVLogFailedMessage = "Failed to log to csv file";
     public static final String SQLExceptionMessage = "We messed up somewhere with the SQL...";
+    public static final String RoleUpdatedMessage = "نقش رو آپدیت کردیم";
+    public static final String RoleNotFoundMessage = "نقش پیدا نشد";
     public static final Integer PendingStatus = 0;
     public static final Integer AcceptStatus = 1;
     public static final Integer RejectStatus = 2;
@@ -37,4 +40,8 @@ public class Constants {
     public static final String OWNER_ROLE = "owner";
     public static final String ADMIN_ROLE = "admin";
     public static final String CUSTOMER_ROLE = "customer";
+
+    public static String NotProvided(String str) {
+        return str + " Not Provided";
+    }
 }

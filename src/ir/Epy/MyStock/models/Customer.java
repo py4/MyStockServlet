@@ -2,14 +2,10 @@ package ir.Epy.MyStock.models;
 
 import ir.Epy.MyStock.Constants;
 import ir.Epy.MyStock.DAOs.CustomerDAO;
-import ir.Epy.MyStock.DAOs.RoleDAO;
 import ir.Epy.MyStock.DAOs.StockShareDAO;
 import ir.Epy.MyStock.exceptions.NotEnoughMoneyException;
 
-import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.sql.SQLException;
-import java.util.HashMap;
 
 /**
  * Created customer_id py4_ on 2/16/16.
@@ -92,20 +88,34 @@ public class Customer {
         System.out.println("deposit:  "+deposit);
     }
 
+
+
     public boolean is_customer() throws SQLException {
-        return (RoleDAO.I().find(username, Constants.CUSTOMER_ROLE) != null);
+        return (CustomerDAO.I().get_role_name(username).equals(Constants.CUSTOMER_ROLE));
     }
 
     public boolean is_admin() throws SQLException {
-        return (RoleDAO.I().find(username, Constants.ADMIN_ROLE) != null);
+        return (CustomerDAO.I().get_role_name(username).equals(Constants.ADMIN_ROLE));
     }
 
     public boolean is_owner() throws SQLException {
-        return (RoleDAO.I().find(username, Constants.OWNER_ROLE) != null);
+        return (CustomerDAO.I().get_role_name(username).equals(Constants.OWNER_ROLE));
     }
 
     public boolean is_accountant() throws SQLException {
-        return (RoleDAO.I().find(username, Constants.ACCOUNTANT_ROLE) != null);
+        return (CustomerDAO.I().get_role_name(username).equals(Constants.ACCOUNTANT_ROLE));
+    }
+
+    public String get_persian_role_name() throws SQLException {
+        if(is_customer())
+            return "مشتری معمولی";
+        else if(is_admin())
+            return "مدیر سیستم";
+        else if(is_owner())
+            return "صاحاب شرکت";
+        else if(is_accountant())
+            return "حسابدار";
+        return "هیچ کاره";
     }
 
 
