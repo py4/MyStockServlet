@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../templates/header.jsp"></jsp:include>
 
 <div class="container">
@@ -23,21 +23,14 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="id" class="col-sm-3 control-label">کد درخواست‌دهنده</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" name="id" id="id" placeholder="کد درخواست‌دهنده">
-                    </div>
-                </div>
+
                 <div class="form-group">
                     <label for="instrument" class="col-sm-3 control-label">سهام</label>
                     <div class="col-sm-9">
                         <select class="form-control" id="instrument" name="instrument">
-                            <option value="RENA1">رنا۱</option>
-                            <option value="PARS">پارس</option>
-                            <option value="MAZDA">مزدا</option>
-                            <option value="BENZ">بنز</option>
-                            <option value="UT">دانشگاه تهران</option>
+                            <c:forEach var="sym" items="${symbol_list}">
+                                <option value="${sym}"><c:out value="${sym}"/></option>
+                            </c:forEach>
                         </select>
                     </div>
                 </div>

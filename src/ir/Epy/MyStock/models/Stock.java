@@ -29,7 +29,7 @@ public class Stock {
     }
 
     public PriorityQueue<StockRequest> getBuyRequests() throws SQLException {
-        PriorityQueue<StockRequest> result = new PriorityQueue<>();
+        PriorityQueue<StockRequest> result = new PriorityQueue<>(2, Collections.<StockRequest>reverseOrder());
         result.addAll(GTCDAO.I().getBuyRequests(symbol));
         return result;
     }

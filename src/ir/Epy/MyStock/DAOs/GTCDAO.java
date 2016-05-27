@@ -15,6 +15,7 @@ public class GTCDAO extends DAO {
 
     private static GTCDAO ourInstance = new GTCDAO();
     private int maxId = 0;
+    private final int default_status = Constants.AcceptStatus;
 
     private GTCDAO() {
         TABLE_NAME = "stock_requests";
@@ -51,7 +52,7 @@ public class GTCDAO extends DAO {
 
     public GTCRequest create(String customer_id, String stock_symbol, Integer base_price, Integer quantity, String type, Boolean is_buy) throws SQLException {
         System.out.println("new req id " + (maxId+1));
-        super.create(maxId+1, customer_id, stock_symbol, base_price, quantity, type, is_buy);
+        super.create(maxId+1, customer_id, stock_symbol, base_price, quantity, type, is_buy, default_status); //@TODO check with Config.limit
         return new GTCRequest(maxId++, customer_id, stock_symbol, base_price, quantity, type, is_buy);
     }
 //    public void delete(int id) throws SQLException {
