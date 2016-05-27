@@ -47,6 +47,7 @@
                             <td>
                                 <button type="submit" class="btn btn-danger" name="action" value="deny">رد</button>
                             </td>
+                            <input type="hidden" name="csrfPreventionSalt" value="<c:out value='${csrfPreventionSalt}'/>"/>
                         </form>
                     </tr>
                 <% } %>

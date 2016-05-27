@@ -83,6 +83,7 @@
         <web-resource-collection>
             <web-resource-name>AccountantActions</web-resource-name>
             <url-pattern>/accountant/*</url-pattern>
+            <url-pattern>/admin/requests</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>accountant</role-name>
@@ -121,7 +122,18 @@
     ...
     <filter-mapping>
         <filter-name>validateSalt</filter-name>
+
         <url-pattern>/credit/new</url-pattern>
+        <url-pattern>/credit/credit_check</url-pattern>
+        <url-pattern>/requests/new</url-pattern>
+        <url-pattern>/accountant/update_gtc_status</url-pattern>
+        <url-pattern>/admin/update_limit</url-pattern>
+        <url-pattern>/admin/update_role</url-pattern>
+        <url-pattern>/customers/profile</url-pattern>
+        <url-pattern>/customers/create</url-pattern>
+        <url-pattern>/stock/approve</url-pattern>
+        <url-pattern>/stock/new</url-pattern>
+        <url-pattern>/stock/queues</url-pattern>
     </filter-mapping>
 
 </web-app>

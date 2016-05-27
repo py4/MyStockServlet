@@ -62,6 +62,7 @@
                         <button type="submit" class="btn btn-success">ثبت درخواست</button>
                     </div>
                 </div>
+                <input type="hidden" name="csrfPreventionSalt" value="<c:out value='${csrfPreventionSalt}'/>"/>
             </form>
         </div>
     </div>

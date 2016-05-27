@@ -25,6 +25,7 @@
                     <option value=<%=Constants.RejectStatus%>> رد </option>
                 </select>
                 <button type="submit" class="btn btn-success" name="action" value="show">تایید</button>
+                <input type="hidden" name="csrfPreventionSalt" value="<c:out value='${csrfPreventionSalt}'/>"/>
             </form>
         </div>
     </div>

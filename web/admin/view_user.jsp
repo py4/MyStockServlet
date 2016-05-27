@@ -22,6 +22,7 @@
                 </select>
 
                 <button type="submit" class="btn btn-success" name="action" value="show">نمایش</button>
+                <input type="hidden" name="csrfPreventionSalt" value="<c:out value='${csrfPreventionSalt}'/>"/>
             </form>
 
             </table>

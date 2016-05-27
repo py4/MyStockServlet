@@ -38,6 +38,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-success" name="action" value="show">اضافه کن!</button>
+                <input type="hidden" name="csrfPreventionSalt" value="<c:out value='${csrfPreventionSalt}'/>"/>
             </form>
 
             </table>

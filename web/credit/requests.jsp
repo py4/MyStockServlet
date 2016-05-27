@@ -37,6 +37,7 @@
                             </div>
 
                         </td>
+                        <input type="hidden" name="csrfPreventionSalt" value="<c:out value='${csrfPreventionSalt}'/>"/>
                     </form>
                 </tr>
             </c:forEach>

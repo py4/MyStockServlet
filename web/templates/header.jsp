@@ -8,6 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -38,7 +39,7 @@
 
                     <% } else if(customer.is_accountant()) { %>
 
-                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/admin/requests"><i class="fa fa-money"></i>مدیریت درخواست‌های مالی</a></li>
+                        <li><a class="navbar-brand" href="${pageContext.request.contextPath}/credit/requests"><i class="fa fa-money"></i>مدیریت درخواست‌های مالی</a></li>
                         <li><a class="navbar-brand" href="/accountant/manage_limited_requests.jsp"><i class="fa fa-money"></i>مدیریت درخواست‌های تراکنش</a></li>
                         <li><a class="navbar-brand" href="${pageContext.request.contextPath}/stock"><i class="fa fa-newspaper-o"></i>مشاهده‌ی وضعیت بازار</a></li>
                         <li><a class="navbar-brand" href="${pageContext.request.contextPath}/customers/profile"><i class="fa fa-newspaper-o"></i>مشاهده‌ی صفحه‌ی پروفایل خود</a></li>

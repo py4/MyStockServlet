@@ -33,6 +33,7 @@
     <div class="form-group">
         <input type="submit" value="تغییرش بده!" class="btn btn-success">
     </div>
+    <input type="hidden" name="csrfPreventionSalt" value="<c:out value='${csrfPreventionSalt}'/>"/>
 </form>
 </div>
 
