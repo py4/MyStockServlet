@@ -7,13 +7,15 @@ import java.util.List;
  * Created customer_id esihaj on 4/8/16.
  */
 public class StockTransactionLog {
+    public int id;
     public String buyer, seller;
-    private String symbol;
-    private String trade_type;
-    private int quantity;
-    private int buyer_remained_money, seller_curr_money;
+    public String symbol;
+    public String trade_type;
+    public int quantity;
+    public int buyer_remained_money, seller_curr_money;
 
-    public StockTransactionLog(String buyer, String seller, String symbol, String trade_type, int quantity, int buyer_remained_money, int seller_curr_money) {
+    public StockTransactionLog(int id, String buyer, String seller, String symbol, String trade_type, int quantity, int buyer_remained_money, int seller_curr_money) {
+        this.id = id;
         this.buyer = buyer;
         this.seller = seller;
         this.symbol = symbol;

@@ -90,7 +90,7 @@ public class NewRequest extends HttpServlet {
         if(errors.size() > 0)
             Utils.forward_with_error(request, response, "/requests/new.jsp", errors);
         else
-            Utils.redirect_with_message(request, response, "/requests/index.jsp", org.toString());
+            Utils.redirect_with_message(request, response, "/customers/home.jsp", org.toString());
 
     }
 
