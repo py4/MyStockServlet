@@ -7,6 +7,7 @@ DROP TABLE stocks IF EXISTS ;
 DROP TABLE roles IF EXISTS ;
 DROP TABLE config IF EXISTS ;
 DROP TABLE customers IF EXISTS ;
+DROP TABLE transaction_logs IF EXISTS ;
 
 CREATE TABLE customers (
   id VARCHAR(100) NOT NULL ,
@@ -110,21 +111,17 @@ INSERT INTO config(id, limit)
  VALUES ('1', 1000000);
 
 
-
--- CREATE TABLE transaction (
---   t_id INTEGER NOT NULL ,
---   quantity INTEGER,
---   buyer_money INTEGER,
---   seller_money INTEGER,
---   req_type VARCHAR(10),
---   symbol VARCHAR(100),
---   buyer_id INTEGER ,
---   seller_id INTEGER,
---   PRIMARY KEY (t_id, buyer_id, seller_id, symbol),
---   FOREIGN KEY (buyer_id) REFERENCES customer,
---   FOREIGN KEY (seller_id) REFERENCES customer,
---   FOREIGN KEY (symbol) REFERENCES stocks
--- );
+CREATE TABLE transaction_logs (
+  id INTEGER NOT NULL,
+  buyer VARCHAR(100),
+  seller VARCHAR(100),
+  symbol VARCHAR(100),
+  trade_type VARCHAR(100),
+  quantity INTEGER,
+  buyer_remained_money INTEGER,
+  seller_curr_money INTEGER,
+  PRIMARY KEY (id)
+);
 --
 --
 -- INSERT INTO customers (id, name, family) VALUES ('1', 'admin', 'admin zadeh');
