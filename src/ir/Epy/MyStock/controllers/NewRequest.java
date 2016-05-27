@@ -63,37 +63,6 @@ public class NewRequest extends HttpServlet {
         }
 
 
-
-
-        //errors = Database.get_obj().addRequest(id, symbol, price, quantity, type, buy_or_sell, msg);
-
-        /*try {
-            Customer customer = Database.get_obj().get_customer(id);
-            try {
-                stock = Database.get_obj().get_stock(symbol);
-                if (buy_or_sell.equals("buy"))
-                    buy(customer, stock, price, quantity, type, msg);
-                else
-                    sell(customer, stock, price, quantity, type, msg);
-            } catch (StockNotFoundException e) {
-                if(customer.is_admin() && buy_or_sell.equals("sell")) {
-                    stock = Database.get_obj().add_stock(symbol);
-                    StockRequest req = StockRequest.create_request(id, stock, price, quantity,type,false);
-                    customer.increase_share(symbol, 0);
-                    if(type.equals("GTC"))
-                        stock.add_sell_req(req);
-                    req.process(msg);
-                } else
-                    errors.add(Constants.SymbolNotFoundMessage);
-            }
-        } catch (CustomerNotFoundException e) {
-            errors.add(Constants.CustomerNotFoundMessage);
-        } catch (NotEnoughMoneyException e) {
-            errors.add(Constants.NotEnoughMoneyMessage);
-        } catch (NotEnoughShareException e) {
-            errors.add(Constants.NotEnoughShareMessage);
-        } */
-
         if(errors.size() > 0) {
             request.setAttribute("errors", errors);
             request.getRequestDispatcher("/requests/new.jsp").forward(request, response);
@@ -107,36 +76,5 @@ public class NewRequest extends HttpServlet {
         request.getRequestDispatcher("/requests/new.jsp").forward(request, response);
     }
 
-    /*private void buy(Customer customer, Stock stock, Integer price, Integer quantity, String type, PrintWriter msg) throws NotEnoughMoneyException {
-        String symbol = stock.get_symbol();
-        StockRequest req = StockRequest.create_request(customer.id, stock, price, quantity, type, true);
-        if(type.equals("GTC")) {
-            if (!customer.can_buy(quantity, price))
-                throw new NotEnoughMoneyException();
-            customer.decrease_deposit(price * quantity);
-            stock.add_buy_req(req);
-        }
-        try {
-            req.process(msg);
-        } catch (CustomerNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
-    private void sell(Customer customer, Stock stock, Integer price, Integer quantity, String type, PrintWriter msg) throws NotEnoughShareException {
-        String symbol = stock.get_symbol();
-        if (!customer.can_sell(symbol, quantity))
-            throw new NotEnoughShareException();
-
-        StockRequest req = StockRequest.create_request(customer.id, stock, price, quantity,type,false);
-        if(type.equals("GTC")) {
-            customer.decrease_share(symbol, quantity);
-            stock.add_sell_req(req);
-        }
-        try {
-            req.process(msg);
-        } catch (CustomerNotFoundException e) {
-            e.printStackTrace();
-        }
-    } */
 }
