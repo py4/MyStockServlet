@@ -34,10 +34,10 @@ public class ConfigDAO extends DAO {
         else return Integer.MAX_VALUE;
     }
     public void set_limit() throws SQLException {
-        ResultSet rs = super.find();
+        /*(ResultSet rs = super.find();
         if(rs.next())
             return rs.getInt("limit");
-        else return Integer.MAX_VALUE;
+        else return Integer.MAX_VALUE;*/
     }
 
 }

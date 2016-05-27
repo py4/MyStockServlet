@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class CustomerMapper {
     public static Customer mapRow(ResultSet rs){
         try {
-            return new Customer(rs.getString("ID"),rs.getString("USERNAME"), rs.getString("PASSWORD"), rs.getString("ROLE"), rs.getString("NAME"), rs.getString("FAMILY"), rs.getInt("DEPOSIT"));
+            return new Customer(rs.getString("ID"),rs.getString("USERNAME"), rs.getString("PASSWORD"), rs.getString("NAME"), rs.getString("FAMILY"), rs.getInt("DEPOSIT"));
         } catch (SQLException e) {
             e.printStackTrace();
         }

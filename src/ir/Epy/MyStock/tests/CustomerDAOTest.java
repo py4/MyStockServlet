@@ -9,7 +9,6 @@ import java.sql.SQLException;
 
 public class CustomerDAOTest {
     public static void main(String[] args) {
-
         try {
             CustomerDAO.I().deleteAll();
         } catch (SQLException e) {
@@ -73,6 +72,7 @@ public class CustomerDAOTest {
             assert (c.name.equals("HASSAN"));
             customer.id = "3";
             customer.name = "REZA";
+            customer.username = "REZA";
             CustomerDAO.I().updateOrCreate(customer);
             c = CustomerDAO.I().find("3");
             assert(c.name.equals("REZA"));

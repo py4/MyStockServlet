@@ -8,20 +8,22 @@ import ir.Epy.MyStock.exceptions.CustomerAlreadyExistsException;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import ir.Epy.MyStock.models.Customer;
 
+import java.security.SecureRandom;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.math.BigInteger;
 
 public class CustomerDAO extends DAO {
 
     private static CustomerDAO ourInstance = new CustomerDAO();
     private int maxId = 0;
     private int default_deposit = 1000;
-    private String default_role = Constants.USER_ROLE_CUSTOMER;
+    private String default_role = Constants.CUSTOMER_ROLE;
 
     private CustomerDAO() {
         TABLE_NAME = "customers";
-        db_fields = new ArrayList<String> (Arrays.asList("ID", "USERNAME", "PASSWORD", "NAME", "FAMILY", "ROLE", "DEPOSIT"));
+        db_fields = new ArrayList<String> (Arrays.asList("ID", "USERNAME", "PASSWORD", "NAME", "FAMILY", "DEPOSIT"));
         db_pks = new ArrayList<String>(Arrays.asList("ID"));
 
         ResultSet rs = null;
@@ -44,7 +46,6 @@ public class CustomerDAO extends DAO {
     }
 
     public Customer find(String id) throws CustomerNotFoundException, SQLException {
-
         ResultSet rs = super.find(id);
         if (rs.next())
             return CustomerMapper.mapRow(rs);
@@ -52,21 +53,35 @@ public class CustomerDAO extends DAO {
             throw new CustomerNotFoundException();
     }
 
+    public Customer findByUsername(String username) throws SQLException {
+        PreparedStatement ps = DBConnection.prepareStatement("SELECT * FROM " + TABLE_NAME + " s WHERE USERNAME=?");
+        ps.setString(1, username);
+        ResultSet rs = ps.executeQuery();
+        if(rs.next())
+            return CustomerMapper.mapRow(rs);
+        else
+            return null;
+    }
+
     public String login(String username, String password) throws SQLException {
-        PreparedStatement ps = DBConnection.prepareStatement("SELECT * FROM " + TABLE_NAME + " s WHERE USERNAME=? AND PASSWORD=?");
+        return "";
+        /*PreparedStatement ps = DBConnection.prepareStatement("SELECT * FROM " + TABLE_NAME + " s WHERE USERNAME=? AND PASSWORD=?");
         ps.setString(1, username);
         ps.setString(2, password);
         ResultSet rs = ps.executeQuery();
-        if(rs.next())
+        if(rs.next()) {
+            Customer c = CustomerMapper.mapRow(rs);
+            return c.id;
+        }
             return rs.getString("ID");
-        return "";
+        return ""; */
     }
 
     public void create(String username, String password, String name, String family) throws SQLException, CustomerAlreadyExistsException {
         try {
             maxId++;
-            super.create("" + maxId, username, password, default_role , name, family, default_deposit);
-
+            super.create("" + maxId, username, password , name, family, default_deposit);
+            RoleDAO.I().create(username, Constants.CUSTOMER_ROLE);
         } catch (SQLIntegrityConstraintViolationException e) {
             throw new CustomerAlreadyExistsException();
         }

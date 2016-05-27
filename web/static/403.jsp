@@ -1,10 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
-  User: root
-  Date: 4/4/16
-  Time: 12:21 AM
+  User: py4_
+  Date: 5/26/16
+  Time: 7:04 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:redirect url="/customers/home.jsp"/>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+This is 403 page!
+</body>
+</html>

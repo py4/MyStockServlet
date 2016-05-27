@@ -41,9 +41,12 @@
     </div>
 </nav>
 
-<% if(request.getAttribute("success_message") != null) { %>
+<h1> salam </h1>
+<h1> <%= request.getSession() %></h1>
+<% if(request.getSession() != null && request.getSession().getAttribute("success_message") != null) { %>
 <div class="alert alert-success">
-    <%= request.getAttribute("success_message") %>
+    <%=  request.getSession().getAttribute("success_message") %>
+    <% request.getSession().removeAttribute("success_message"); %>
 </div>
 <% } %>
 

@@ -48,7 +48,7 @@ public class Requests extends HttpServlet {
             if (method.equals("GET")) { //[GET]
                 matcher = regExLimitPattern.matcher(pathInfo); //[GET Limit List]
                 if (matcher.find()) {
-                    handle_get_limited();
+                    //handle_get_limited();
                 } else handle_get_all(); // [GET All]
                 return;
             }

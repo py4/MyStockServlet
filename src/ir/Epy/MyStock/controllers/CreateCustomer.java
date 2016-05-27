@@ -9,34 +9,38 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Created customer_id root on 4/4/16.
+ * Created by py4_ on 5/27/16.
  */
-@WebServlet("/customers/new")
-public class NewCustomer extends HttpServlet {
+@WebServlet("/customers/create")
+public class CreateCustomer extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<String> errors = new ArrayList<String>();
 
-        String id = request.getParameter("id");
-        if(id == null || id.equals(""))
-            errors.add("User id not provided");
         String name = request.getParameter("name");
         if(name == null || name.equals(""))
             errors.add("User name not provided");
         String family = request.getParameter("family");
         if(family == null || family.equals(""))
             errors.add("User family not provided");
+        String username = request.getParameter("username");
+        if(username == null || username.equals(""))
+            errors.add("Username not provided");
+        String password = request.getParameter("password");
+        if(password == null || password.equals(""))
+            errors.add("Password not provided");
 
         if(errors.size() == 0) {
             try {
-                //Database.get_obj().add_customer(id,name,family);
-                CustomerDAO.I().create(name,family,name, family);
-                request.setAttribute("success_message", Constants.CustomerAddedMessage);
-                request.getRequestDispatcher("/customers/index.jsp").forward(request, response);
+                CustomerDAO.I().create(username, password, name, family);
+                HttpSession session = request.getSession(false);
+                session.setAttribute("success_message", Constants.CustomerAddedMessage);
+                response.sendRedirect("/customers/home.jsp");
                 return;
             } catch (CustomerAlreadyExistsException e) {
                 errors.add(Constants.CustomerExistsMessage);
@@ -47,9 +51,6 @@ public class NewCustomer extends HttpServlet {
 
         request.setAttribute("errors", errors);
         request.getRequestDispatcher("/customers/new.jsp").forward(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/customers/new.jsp").forward(request, response);
+        return;
     }
 }

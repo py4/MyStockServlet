@@ -32,4 +32,9 @@ public class Constants {
     /*****************************************************************************/
     public static final String USER_ROLE_ADMIN = "admin";
     public static final String USER_ROLE_CUSTOMER = "customer";
+
+    public static final String ACCOUNTANT_ROLE = "accountant";
+    public static final String OWNER_ROLE = "owner";
+    public static final String ADMIN_ROLE = "admin";
+    public static final String CUSTOMER_ROLE = "customer";
 }
