@@ -29,7 +29,9 @@ public class NewRequest extends HttpServlet {
         ArrayList<String> errors = new ArrayList<String>();
         String username = request.getRemoteUser();
         String symbol = request.getParameter("instrument");
-        Integer price = Integer.parseInt(request.getParameter("price"));
+        Integer price = 0;
+        if (request.getParameter("price").isEmpty())
+            price = Integer.parseInt(request.getParameter("price"));
         Integer quantity = Integer.parseInt(request.getParameter("quantity"));
         String type = request.getParameter("type");
         String buy_or_sell = request.getParameter("buy_or_sell");
@@ -41,10 +43,10 @@ public class NewRequest extends HttpServlet {
             Customer customer = CustomerDAO.I().findByUsername(username);
             if (buy_or_sell.equals("buy")) {
                 StockRequest req = StockRequest.create_request(customer.id, symbol, price, quantity, type, true);
-                if(!customer.can_buy(quantity, price))
+                if(!customer.can_buy(quantity, price)) {
                     errors.add(Constants.NotEnoughMoneyMessage);
-                else {
-                    System.out.println("we can buy it");
+                    System.out.println("we can buy!");
+                } else {
                     customer.decrease_deposit(price * quantity);
                     req.process(msg);
                 }
