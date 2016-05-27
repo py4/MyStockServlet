@@ -86,6 +86,16 @@
         </auth-constraint>
     </security-constraint>
 
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>AccountantActions</web-resource-name>
+            <url-pattern>/accountant/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>accountant</role-name>
+        </auth-constraint>
+    </security-constraint>
+
 
 
     <security-role>

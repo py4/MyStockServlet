@@ -118,6 +118,8 @@ public abstract class StockRequest implements Comparable<StockRequest> {
         return customer_id;
     }
 
+    public int getStatus() { return status; }
+
     public HashMap<String,String> getReport() {
         return new HashMap<String,String>();
     }
