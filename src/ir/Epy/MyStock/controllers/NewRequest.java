@@ -47,8 +47,8 @@ public class NewRequest extends HttpServlet {
                 if(!customer.can_buy(quantity, price))
                     errors.add(Constants.NotEnoughMoneyMessage);
                 else {
-                    customer.decrease_deposit(price * quantity);
-
+                    if (type.equals("GTC"))
+                        customer.decrease_deposit(price * quantity);
 
                     // refund in case of reject
                     if(req.status == Constants.PendingStatus) {

@@ -17,7 +17,7 @@
         </h2>
         <div class="col-sm-9 well col-centered">
             <div class="col-sm-4">
-                <h3>لیست فروش</h3>
+                <h3>لیست خرید</h3>
             <table>
                 <tr>
                     <th>شماره مشتری</th>
@@ -39,7 +39,7 @@
             </div>
 
             <div class="col-sm-4">
-                <h3>لیست خرید</h3>
+                <h3>لیست فروش</h3>
                 <table>
                     <tr>
                         <th>شماره مشتری</th>

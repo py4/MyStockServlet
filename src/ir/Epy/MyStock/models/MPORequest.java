@@ -78,7 +78,7 @@ public class MPORequest extends ir.Epy.MyStock.models.StockRequest {
             }
 
             System.out.println("buy head " + " id " + head.customer_id + " price " + head.base_price + " count " + head.quantity);
-            price_sum += head.base_price * head.quantity;
+            price_sum += head.base_price * Math.min(head.quantity, backup_quantity);
             if(backup_quantity <= head.quantity) {
                 if(!is_buy)
                     return true;
