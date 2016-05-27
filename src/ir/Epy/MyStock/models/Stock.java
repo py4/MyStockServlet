@@ -63,4 +63,8 @@ public class Stock {
     public int getStatus() {
         return status;
     }
+
+    public String getOwner_id() {
+        return owner_id;
+    }
 }

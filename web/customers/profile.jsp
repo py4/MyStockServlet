@@ -31,6 +31,34 @@
             <c:out value="${customer.deposit}"/><br/>
         </div>
     </div>
+<c:if test="${customer.is_owner()}">
+    <div class="col-sm-4 well col-centered">
+        <h3>نماد‌ها</h3>
+        <table>
+            <tr>
+                <th>نماد</th>
+                <th>وضعیت</th>
+            </tr>
+            <c:forEach var="stock" items="${stock_list}">
+                <tr>
+                    <td> <c:out value="${stock.symbol}"/> </td>
+                    <td> <c:choose>
+                        <c:when test="${stock.status == 0}">
+                            در انتظار
+                        </c:when>
+                        <c:when test="${stock.status == 1}">
+                            تایید شده
+                        </c:when>
+                        <c:when test="${stock.status == 2}">
+                            رد شده
+                        </c:when>
+                    </c:choose> </td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+</c:if>
+
 <c:if test="${customer.is_customer()}">
     <div class="col-sm-4 well col-centered">
         <h3>سهام‌ها</h3>

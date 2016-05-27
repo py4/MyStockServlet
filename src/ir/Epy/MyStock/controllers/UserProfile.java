@@ -35,6 +35,8 @@ public class UserProfile extends HttpServlet {
             if (c.is_customer()) {
                 request.setAttribute("share_list", c.getShares());
                 request.setAttribute("request_list", c.getRequests());
+            } else if (c.is_owner()) {
+                request.setAttribute("stock_list", StockDAO.I().get_owner_stocks(c.id));
             }
 
         } catch (SQLException e) {
@@ -60,6 +62,8 @@ public class UserProfile extends HttpServlet {
             if (c.is_customer()) {
                 request.setAttribute("share_list", c.getShares());
                 request.setAttribute("request_list", c.getRequests());
+            } else if (c.is_owner()) {
+                request.setAttribute("stock_list", StockDAO.I().get_owner_stocks(c.id));
             }
 
         } catch (SQLException e) {

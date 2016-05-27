@@ -57,5 +57,12 @@ public class StockDAO extends DAO {
         return cs;
     }
 
+    public ArrayList<Stock> get_owner_stocks(String id) throws SQLException {
+        ResultSet rs = super.all("WHERE OWNER_ID="+id);
+        ArrayList<Stock> cs = new ArrayList<>();
+        while(rs.next())
+            cs.add(StockMapper.mapRow(rs));
+        return cs;
+    }
 
 }
