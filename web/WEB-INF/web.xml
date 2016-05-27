@@ -46,6 +46,7 @@
         <web-resource-collection>
             <web-resource-name>CustomerActions</web-resource-name>
             <url-pattern>/customers/home.jsp</url-pattern>
+            <url-pattern>/customers/profile</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>

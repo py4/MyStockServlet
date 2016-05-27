@@ -78,6 +78,18 @@ public class GTCDAO extends DAO {
     public ArrayList<StockRequest> getBuyRequests(String stock_symbol) throws SQLException {
         return getRequests(stock_symbol, true);
     }
+
+    public ArrayList<StockRequest> getCustomerRequests(String customer_id) throws SQLException {
+        String query = "SELECT * FROM " + TABLE_NAME + " r WHERE CUSTOMER_ID='"+customer_id+"'";
+        System.out.println("[DEBUG] query: "+query);
+        ResultSet rs = DBConnection.createStatement().executeQuery(query);
+        ArrayList<StockRequest> reqs = new ArrayList<>();
+        while(rs.next())
+            reqs.add(GTCRequestMapper.mapRow(rs));
+        return reqs;
+    }
+
+
     public ArrayList<StockRequest> getAll(int status) throws SQLException {
         ResultSet rs = super.all("WHERE STATUS='"+status+"'");
         ArrayList<StockRequest> cs = new ArrayList<>();

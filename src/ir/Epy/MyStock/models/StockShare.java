@@ -14,6 +14,15 @@ public class StockShare {
         this.quantity = quantity;
     }
 
+    public String getCustomer_id() {
+        return customer_id;
+    }
 
+    public String getStock_symbol() {
+        return stock_symbol;
+    }
 
+    public Integer getQuantity() {
+        return quantity;
+    }
 }
