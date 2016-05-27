@@ -66,12 +66,16 @@ public abstract class StockRequest implements Comparable<StockRequest> {
     }
 
     protected PriorityQueue<StockRequest> get_opposite_queue() throws SQLException {
-        PriorityQueue<StockRequest> result = new PriorityQueue<>();
-        if(is_buy)
-            result.addAll(GTCDAO.I().getSellRequests(stock_symbol));
-        else
-            result.addAll(GTCDAO.I().getBuyRequests(stock_symbol));
-        return result;
+        try {
+            if(is_buy)
+                return StockDAO.I().find(stock_symbol).getSellRequests();
+            else return StockDAO.I().find(stock_symbol).getBuyRequests();
+        } catch (StockNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+        //            result.addAll(GTCDAO.I().getSellRequests(stock_symbol));
+        //            result.addAll(GTCDAO.I().getBuyRequests(stock_symbol));
     }
 
     protected Boolean price_satisfiable(StockRequest req) {

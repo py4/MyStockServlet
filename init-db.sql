@@ -63,6 +63,7 @@ CREATE TABLE credit_requests(
   id INTEGER NOT NULL ,
   status SMALLINT,
   amount INTEGER,
+  is_deposit BOOLEAN,
   customer_id VARCHAR(100) NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (customer_id) REFERENCES customers

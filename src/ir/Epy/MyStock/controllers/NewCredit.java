@@ -5,6 +5,7 @@ import ir.Epy.MyStock.DAOs.CreditRequestDAO;
 import ir.Epy.MyStock.DAOs.CustomerDAO;
 import ir.Epy.MyStock.exceptions.CustomerNotFoundException;
 import ir.Epy.MyStock.exceptions.InvalidCreditValueRequest;
+import ir.Epy.MyStock.models.Customer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,9 +27,8 @@ public class NewCredit extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<String> errors = new ArrayList<>();
 
-        String id = request.getParameter("customer_id");
-        if(id == null || id.equals(""))
-            errors.add("User id not provided");
+        String username = request.getRemoteUser();
+
         String credit = request.getParameter("credit_value");
         if(credit == null || credit.equals(""))
             errors.add("Credit not provided");
@@ -41,10 +41,11 @@ public class NewCredit extends HttpServlet {
 
         if(errors.size() == 0) {
             try {
-                CreditRequestDAO.I().create(id, Integer.parseInt(credit), PendingStatus);
+                Customer customer = CustomerDAO.I().findByUsername(username);
+                CreditRequestDAO.I().create(customer.id, Integer.parseInt(credit), PendingStatus, is_deposit);
                 request.setAttribute("success_message", Constants.CreditRequestAddedMessage);
-                request.setAttribute("credit", CustomerDAO.I().find(id).getDeposit());
-                request.setAttribute("id", id);
+                request.setAttribute("credit", CustomerDAO.I().find(customer.id).getDeposit());
+                request.setAttribute("id", customer.id);
                 request.getRequestDispatcher("/credit/index.jsp").forward(request, response);
                 return;
             } catch (CustomerNotFoundException e) {

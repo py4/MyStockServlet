@@ -23,12 +23,15 @@ public class MPORequest extends ir.Epy.MyStock.models.StockRequest {
     @Override
     public void process(PrintWriter out) throws CustomerNotFoundException, SQLException {
         if(!MPO_satisfiable()) {
+            System.out.println(Constants.OrderDeclinedMessage);
             out.write(Constants.OrderDeclinedMessage);
             return;
         }
 
         while(true) {
             StockRequest opposite_head = get_opposite_queue().poll();
+            GTCDAO.I().delete(opposite_head.id);
+            System.out.println("buy head " + " id " + opposite_head.customer_id + " price " + opposite_head.base_price + " count " + opposite_head.quantity);
 
             Customer buyer;
             Customer seller;
@@ -69,8 +72,12 @@ public class MPORequest extends ir.Epy.MyStock.models.StockRequest {
         int price_sum = 0;
         while(true) {
             StockRequest head = backup.poll();
-            if(head == null)
+            if(head == null) {
+            System.out.println("no opp head found!");
                 return false;
+            }
+
+            System.out.println("buy head " + " id " + head.customer_id + " price " + head.base_price + " count " + head.quantity);
             price_sum += head.base_price * head.quantity;
             if(backup_quantity <= head.quantity) {
                 if(!is_buy)

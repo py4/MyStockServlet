@@ -55,6 +55,16 @@
         </auth-constraint>
     </security-constraint>
 
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>CustomerOnlyActions</web-resource-name>
+            <url-pattern>/requests/new</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>customer</role-name>
+        </auth-constraint>
+    </security-constraint>
+
 
     <security-constraint>
         <web-resource-collection>

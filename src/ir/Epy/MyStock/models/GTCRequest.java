@@ -32,16 +32,11 @@ public class GTCRequest extends ir.Epy.MyStock.models.StockRequest {
 
         PriorityQueue<StockRequest> sell_requests = stock.getSellRequests();
         PriorityQueue<StockRequest> buy_requests = stock.getBuyRequests();
-        System.out.println("sell ");
-        for (StockRequest sr : sell_requests)
-            System.out.println("id " + sr.customer_id + "price " + sr.base_price + "count " + sr.quantity);
-        System.out.println("buy");
-        for (StockRequest sr : buy_requests)
-            System.out.println("id " + sr.customer_id + "price " + sr.base_price + "count " + sr.quantity);
 
         while(true) {
             StockRequest sell_head = sell_requests.peek();
             StockRequest buy_head = buy_requests.peek();
+
             if(sell_head == null || buy_head == null || buy_head.base_price < sell_head.base_price)
                 break;
 

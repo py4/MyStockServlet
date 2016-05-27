@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import static ir.Epy.MyStock.Constants.AcceptStatus;
 import static ir.Epy.MyStock.Constants.RejectStatus;
 
-@WebServlet("/admin/credit_check")
+@WebServlet("/credit/credit_check")
 public class AdminCreditCheck extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,12 +40,11 @@ public class AdminCreditCheck extends HttpServlet {
         else if (action.equals("deny"))
             action_status = RejectStatus;
         else errors.add("Action not defined");
-
         if(errors.size() == 0) {
             try {
                 CreditRequestDAO.I().find(req_id).process_request(action_status);
                 request.setAttribute("success_message", Constants.CreditRequestProcessedMessage + ": " + req_id +" [" + action + "]");
-                request.getRequestDispatcher("/admin/requests").forward(request, response);
+                request.getRequestDispatcher("/credit/requests").forward(request, response);
                 return;
             } catch (CreditRequestNotFoundException e) {
                 errors.add(Constants.CreditRequestNotFoundMessage);
@@ -57,10 +56,10 @@ public class AdminCreditCheck extends HttpServlet {
         }
 
         request.setAttribute("errors", errors);
-        request.getRequestDispatcher("/admin/requests").forward(request, response);
+        request.getRequestDispatcher("/credit/requests").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/admin/requests").forward(request, response);
+        request.getRequestDispatcher("/credit/requests").forward(request, response);
     }
 }

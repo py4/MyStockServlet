@@ -23,7 +23,7 @@
             </tr>
             <c:forEach var="req" items="${req_list}">
                 <tr>
-                    <form id="request" action="/admin/credit_check" class="form-horizontal" method="post">
+                    <form id="request" action="/credit/credit_check" class="form-horizontal" method="post">
                         <td>
                             <c:out value="${req.id}"/>
                             <input type="hidden" name="req_id" value="${req.id}"/>
